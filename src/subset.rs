@@ -17,6 +17,9 @@ pub fn subset_util<T>(
 
 /// This method will give all subsets of a set which is cloneable
 /// pub fn find_all_subset<T>(arr: &[T]) -> Vec<Vec<T>> where  T: Clone
+///
+/// # Examples
+/// ```
 /// let v = vec![1, 2, 3];
 /// assert_eq!(
 ///            find_all_subset(&v),
@@ -30,6 +33,7 @@ pub fn subset_util<T>(
 ///                vec![3]
 ///            ]
 ///        );
+/// ```
 pub fn find_all_subset<T>(arr: &[T]) -> Vec<Vec<T>>
 where
     T: Clone,
