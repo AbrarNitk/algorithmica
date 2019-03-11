@@ -1,3 +1,5 @@
+pub mod subset;
+
 #[cfg(test)]
 mod tests {
     #[test]
