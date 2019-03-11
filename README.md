@@ -1,5 +1,4 @@
 # algorithmica
-Rust algorithms
 This Repo contains algorithms related stuff.
 
 ## Math
