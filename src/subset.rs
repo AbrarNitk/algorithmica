@@ -1,10 +1,12 @@
-pub fn subset_util(
-    arr: &[String],
+pub fn subset_util<T>(
+    arr: &[T],
     st: usize,
     end: usize,
-    reserve: &mut Vec<String>,
-    subsets: &mut Vec<Vec<String>>,
-) {
+    reserve: &mut Vec<T>,
+    subsets: &mut Vec<Vec<T>>,
+) where
+    T: Clone,
+{
     for index in st..end {
         reserve.push(arr[index].clone());
         subsets.push(reserve.clone());
@@ -13,7 +15,10 @@ pub fn subset_util(
     }
 }
 
-pub fn find_all_subset(arr: &[String]) -> Vec<Vec<String>> {
+pub fn find_all_subset<T>(arr: &[T]) -> Vec<Vec<T>>
+where
+    T: Clone,
+{
     let mut subsets = vec![];
     let mut reserve = vec![];
     subset_util(arr, 0, arr.len(), &mut reserve, &mut subsets);
@@ -24,7 +29,7 @@ pub fn find_all_subset(arr: &[String]) -> Vec<Vec<String>> {
 mod test {
     use super::*;
     #[test]
-    fn subset_test() {
+    fn subset_test_string() {
         let v = vec!["A".to_string(), "B".to_string(), "C".to_string()];
         assert_eq!(
             find_all_subset(&v),
@@ -36,6 +41,23 @@ mod test {
                 vec!["B"],
                 vec!["B", "C"],
                 vec!["C"]
+            ]
+        );
+    }
+
+    #[test]
+    fn subset_test_int() {
+        let v = vec![1, 2, 3];
+        assert_eq!(
+            find_all_subset(&v),
+            vec![
+                vec![1],
+                vec![1, 2],
+                vec![1, 2, 3],
+                vec![1, 3],
+                vec![2],
+                vec![2, 3],
+                vec![3]
             ]
         );
     }
