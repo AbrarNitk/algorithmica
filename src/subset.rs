@@ -19,7 +19,8 @@ pub fn subset_util<T>(
 /// pub fn find_all_subset<T>(arr: &[T]) -> Vec<Vec<T>> where  T: Clone
 ///
 /// # Examples
-/// ```
+/// ```rust
+/// use algorithmica::subset::find_all_subset;
 /// let v = vec![1, 2, 3];
 /// assert_eq!(
 ///            find_all_subset(&v),

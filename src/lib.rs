@@ -1,3 +1,4 @@
+pub mod sort;
 pub mod subset;
 
 #[cfg(test)]
