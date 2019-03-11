@@ -4,7 +4,7 @@ version = "0.1.0"
 authors = ["AbrarNitk <abrar.nitk@gmail.com>"]
 edition = "2018"
 description = "Rust Algorithms"
-license = "MIT License"
+license = "MIT"
 include = ["src/**/*", "Cargo.toml"]
 
 [dependencies]
