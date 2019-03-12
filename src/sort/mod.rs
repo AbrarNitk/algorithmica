@@ -1,4 +1,5 @@
-pub mod bubble_sort;
+pub mod bubble;
+pub mod insertion;
 
 #[cfg(test)]
-pub mod sort_test;
+pub mod test;

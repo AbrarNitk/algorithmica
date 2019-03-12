@@ -1,8 +1,8 @@
-use std::cmp::{Ordering, PartialEq, PartialOrd};
+use std::cmp::{Ord, Ordering};
 
-pub fn bubble_sort<T>(list: &mut [T])
+pub fn sort<T>(list: &mut [T])
 where
-    T: PartialOrd + PartialEq,
+    T: Ord,
 {
     let n = list.len();
     for i in 0..n - 1 {
@@ -19,7 +19,7 @@ where
     }
 }
 
-pub fn bubble_sort_by<T, F>(list: &mut [T], f: F)
+pub fn sort_by<T, F>(list: &mut [T], f: F)
 where
     F: Fn(&T, &T) -> Ordering,
 {
