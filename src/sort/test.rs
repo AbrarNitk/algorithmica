@@ -1,5 +1,6 @@
 use crate::sort::bubble::{sort, sort_by};
 use crate::sort::insertion::{sort as i_sort, sort_by as i_sort_by};
+use crate::sort::selection::{sort as s_sort, sort_by as s_sort_by};
 use std::cmp::{Ordering, PartialEq, PartialOrd};
 
 #[derive(Debug, Clone)]
@@ -146,6 +147,76 @@ pub fn insertion_sort_struct_by() {
         },
     ];
     i_sort_by(&mut arr, |a: &Employee, b: &Employee| a.name.cmp(&b.name));
+    assert_eq!(
+        arr,
+        [
+            Employee {
+                id: 1,
+                name: "Abrar".to_string(),
+            },
+            Employee {
+                id: 2,
+                name: "Khan".to_string(),
+            }
+        ]
+    );
+}
+
+#[test]
+pub fn selection_sort_int() {
+    let mut arr = vec![1, 2, 3, 3, 3, 3, 4, 3, 1, 2, 4, 3, -1];
+    s_sort(&mut arr);
+    assert_eq!(arr, vec![-1, 1, 1, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4]);
+}
+
+#[test]
+pub fn selection_sort_str() {
+    let mut arr = vec!["zasda", "dasd", "dasd"];
+    s_sort(&mut arr);
+    assert_eq!(arr, vec!["dasd", "dasd", "zasda"]);
+}
+
+#[test]
+pub fn selection_sort_struct() {
+    let mut arr = [
+        Employee {
+            id: 2,
+            name: "Abrar".to_string(),
+        },
+        Employee {
+            id: 1,
+            name: "Khan".to_string(),
+        },
+    ];
+    s_sort(&mut arr);
+    assert_eq!(
+        arr,
+        [
+            Employee {
+                id: 1,
+                name: "Khan".to_string(),
+            },
+            Employee {
+                id: 2,
+                name: "Abrar".to_string(),
+            }
+        ]
+    );
+}
+
+#[test]
+pub fn selection_sort_struct_by() {
+    let mut arr = [
+        Employee {
+            id: 2,
+            name: "Khan".to_string(),
+        },
+        Employee {
+            id: 1,
+            name: "Abrar".to_string(),
+        },
+    ];
+    s_sort_by(&mut arr, |a: &Employee, b: &Employee| a.name.cmp(&b.name));
     assert_eq!(
         arr,
         [
