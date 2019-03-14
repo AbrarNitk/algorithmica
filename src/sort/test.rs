@@ -1,5 +1,6 @@
 use crate::sort::bubble::{sort, sort_by};
 use crate::sort::insertion::{sort as i_sort, sort_by as i_sort_by};
+use crate::sort::is_sorted::{is_sorted, is_sorted_by};
 use crate::sort::selection::{sort as s_sort, sort_by as s_sort_by};
 use std::cmp::{Ordering, PartialEq, PartialOrd};
 
@@ -229,5 +230,29 @@ pub fn selection_sort_struct_by() {
                 name: "Khan".to_string(),
             }
         ]
+    );
+}
+
+#[test]
+fn is_sorted_test() {
+    assert_eq!(true, is_sorted(&vec![1]));
+    assert_eq!(true, is_sorted(&vec![1, 2, 3, 6]));
+    assert_eq!(false, is_sorted(&vec![6, 5]));
+}
+
+#[test]
+fn is_sorted_test_by() {
+    assert_eq!(
+        true,
+        is_sorted_by(&vec![1, 2, 3, 4, 5], |&x, &y| if x < y {
+            false
+        } else {
+            true
+        })
+    );
+
+    assert_eq!(
+        false,
+        is_sorted_by(&vec![6, 5], |&x, &y| if x < y { false } else { true })
     );
 }
