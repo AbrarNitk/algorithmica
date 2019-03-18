@@ -1,6 +1,7 @@
 use crate::sort::bubble::{sort, sort_by};
 use crate::sort::insertion::{sort as i_sort, sort_by as i_sort_by};
 use crate::sort::is_sorted::{is_sorted, is_sorted_by};
+use crate::sort::quick_sort::sort as q_sort;
 use crate::sort::selection::{sort as s_sort, sort_by as s_sort_by};
 use std::cmp::{Ordering, PartialEq, PartialOrd};
 
@@ -254,5 +255,40 @@ fn is_sorted_test_by() {
     assert_eq!(
         false,
         is_sorted_by(&vec![6, 5], |&x, &y| if x < y { false } else { true })
+    );
+}
+
+#[test]
+fn quick_sort() {
+    let mut arr = vec!["zasda", "dasd", "dasd"];
+    q_sort(&mut arr);
+    assert_eq!(arr, vec!["dasd", "dasd", "zasda"]);
+}
+
+#[test]
+fn quick_sort_struct() {
+    let mut arr = [
+        Employee {
+            id: 2,
+            name: "Abrar".to_string(),
+        },
+        Employee {
+            id: 1,
+            name: "Khan".to_string(),
+        },
+    ];
+    q_sort(&mut arr);
+    assert_eq!(
+        arr,
+        [
+            Employee {
+                id: 1,
+                name: "Khan".to_string(),
+            },
+            Employee {
+                id: 2,
+                name: "Abrar".to_string(),
+            }
+        ]
     );
 }
