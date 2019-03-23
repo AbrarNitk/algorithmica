@@ -34,14 +34,12 @@ fn test_int() {
     assert_eq!(true, binary::search(&arr, &1));
 }
 
-
 #[test]
 fn test_str() {
     let arr = vec!["a", "b", "c", "d", "e", "f"];
     assert_eq!(true, binary::search(&arr, &"f"));
     assert_eq!(false, binary::search(&arr, &"g"));
 }
-
 
 #[test]
 fn test_struct() {
@@ -79,7 +77,8 @@ fn test_struct() {
                 id: 6,
                 name: "Abrar".to_string(),
             }
-        ));
+        )
+    );
 
     assert_eq!(
         true,
@@ -89,7 +88,8 @@ fn test_struct() {
                 id: 10,
                 name: "Abrar".to_string(),
             }
-        ));
+        )
+    );
 
     assert_eq!(
         false,
@@ -99,5 +99,6 @@ fn test_struct() {
                 id: 0,
                 name: "Abrar".to_string(),
             }
-        ));
+        )
+    );
 }
