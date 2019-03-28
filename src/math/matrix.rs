@@ -52,13 +52,13 @@ mod test {
     fn matrix_mul() {
         let t1 = [[1.0, 2.0], [4.0, 5.0]];
         let t2 = [[1.0, 4.0], [2.0, 5.0]];
-        println!("{:#?}", multiply(&t1, &t2));
+        assert_eq!(vec![vec![5.0, 14.0], vec![14.0, 41.0]], multiply(&t1, &t2));
     }
 
     #[test]
     fn matrix_add() {
         let t1 = [[1.0, 2.0], [4.0, 5.0]];
         let t2 = [[1.0, 4.0], [2.0, 5.0]];
-        println!("{:#?}", add(&t1, &t2));
+        assert_eq!(vec![vec![2.0, 6.0], vec![6.0, 10.0]], add(&t1, &t2));
     }
 }
