@@ -64,7 +64,7 @@ impl<T: Ord> BST<T> {
     }
 }
 
-impl Default for BST<T> {
+impl<T: Ord> Default for BST<T> {
     fn default() -> Self {
         Self::new()
     }
@@ -73,6 +73,8 @@ impl Default for BST<T> {
 #[cfg(test)]
 mod test {
     use super::*;
+    #[ignore]
+    #[test]
     fn create() {
         let mut t1 = BST::new();
         t1.insert(3);
