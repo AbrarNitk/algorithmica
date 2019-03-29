@@ -1,30 +1,33 @@
+pub mod bst;
+pub mod red_black;
+
 #[derive(Debug)]
 pub struct Node {
-    pub data: i32,
+    pub value: i32,
     pub left: Option<Box<Node>>,
     pub right: Option<Box<Node>>,
 }
 
 impl Node {
-    pub fn create(data: i32) -> Box<Self> {
+    pub fn create(value: i32) -> Box<Self> {
         Box::new(Node {
-            data,
+            value,
             left: None,
             right: None,
         })
     }
 
-    pub fn add_new(root: Option<Box<Node>>, data: i32) -> Option<Box<Self>> {
+    pub fn add_new(root: Option<Box<Node>>, value: i32) -> Option<Box<Self>> {
         match root {
             Some(mut node) => {
                 if node.left.is_none() {
-                    node.left = Node::add_new(node.left, data);
+                    node.left = Node::add_new(node.left, value);
                 } else {
-                    node.right = Node::add_new(node.right, data);
+                    node.right = Node::add_new(node.right, value);
                 }
                 return Some(node);
             }
-            None => return Some(Node::create(data)),
+            None => return Some(Node::create(value)),
         }
     }
 }
