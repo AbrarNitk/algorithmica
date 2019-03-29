@@ -65,7 +65,7 @@ impl<T: Ord> BST<T> {
 }
 
 impl Default for BST<T> {
-    fn default() ->  Self {
+    fn default() -> Self {
         Self::new()
     }
 }
