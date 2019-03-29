@@ -64,6 +64,12 @@ impl<T: Ord> BST<T> {
     }
 }
 
+impl Default for BST<T> {
+    fn default() ->  Self {
+        Self::new()
+    }
+}
+
 #[cfg(test)]
 mod test {
     use super::*;
