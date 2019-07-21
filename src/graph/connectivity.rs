@@ -1,4 +1,3 @@
-
 /// Equivalence Graph properties
 /// 1. x Connected to itself
 /// 2. if x is connected to y means y is connected to x
@@ -14,19 +13,15 @@
 ///
 ///
 pub struct UnionFind {
-    data: Vec<usize>
+    data: Vec<usize>,
 }
 
 pub struct UFLazy(UnionFind);
 
 impl UFLazy {
-
-    pub fn union(&mut self, n1: usize, n2: usize) {
-
-    }
+    pub fn union(&mut self, n1: usize, n2: usize) {}
 
     pub fn find(&self, n1: usize, n2: usize) -> bool {
         true
     }
-
 }
