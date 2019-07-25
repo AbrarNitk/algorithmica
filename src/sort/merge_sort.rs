@@ -17,21 +17,15 @@ where
     let mut left = Vec::with_capacity(mid - start + 1);
     let mut right = Vec::with_capacity(end - mid);
     unsafe {
-        // list_l = list_l.offset((start * mem::size_of::<T>()) as isize);
-        // left.set_len(mid - start + 1);
         let mut start = start;
         while start <= mid {
             left.push(get_by_index(list, start as isize).read());
             start += 1;
         }
-        // ptr::copy_nonoverlapping(list_l, left.as_mut_ptr(), mid - start + 1);
-        // list_l = list_l.offset((mid * mem::size_of::<T>()) as isize);
-        // right.set_len(end - mid);
         while start <= end {
             right.push(get_by_index(list, start as isize).read());
             start += 1;
         }
-        // ptr::copy_nonoverlapping(list_l, right.as_mut_ptr(), end - mid);
     }
 
     let mut left_index = 0;
