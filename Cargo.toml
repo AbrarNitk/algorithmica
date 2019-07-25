@@ -1,6 +1,6 @@
 [package]
 name = "algorithmica"
-version = "0.1.7"
+version = "0.1.8"
 authors = ["AbrarNitk <abrar.nitk@gmail.com>"]
 edition = "2018"
 description = "Rust Algorithms"
