@@ -1,7 +1,5 @@
 use std::cmp::{Ord, Ordering};
 use std::fmt::Debug;
-use std::mem;
-use std::ptr;
 
 unsafe fn get_by_index<T>(list: &[T], index: isize) -> *const T {
     let list_offset = list.as_ptr();
@@ -12,8 +10,6 @@ fn merge<T: Debug, F>(list: &mut [T], start: usize, mid: usize, end: usize, comp
 where
     F: Fn(&T, &T) -> bool,
 {
-    let mut list_l = list.as_mut_ptr();
-
     let mut left = Vec::with_capacity(mid - start + 1);
     let mut right = Vec::with_capacity(end - mid);
     unsafe {
