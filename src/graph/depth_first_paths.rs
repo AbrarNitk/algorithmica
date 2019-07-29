@@ -5,7 +5,7 @@ pub struct DepthFirstPaths<'a> {
     source: usize,
     visited: Vec<bool>,
     parent: Vec<usize>,
-    graph: &'a Graph
+    graph: &'a Graph,
 }
 
 impl<'a> DepthFirstPaths<'a> {
@@ -13,7 +13,10 @@ impl<'a> DepthFirstPaths<'a> {
         let visited = vec![false; graph.v];
         let parent = vec![0; graph.v];
         let mut container = Self {
-            source, graph, visited, parent,
+            source,
+            graph,
+            visited,
+            parent,
         };
         container.dfs(source);
         container
@@ -24,7 +27,7 @@ impl<'a> DepthFirstPaths<'a> {
 
     pub fn path(&self, w: usize) -> Vec<usize> {
         if !self.has_path(w) {
-            return vec![]
+            return vec![];
         }
 
         let mut path_stack = Vec::new();

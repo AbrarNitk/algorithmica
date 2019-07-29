@@ -4,11 +4,10 @@ pub mod depth_first_paths;
 
 #[derive(Debug)]
 pub struct Graph {
-    pub v: usize, // number of all nodes
-    pub e: usize,   // number of all edges
-    pub nodes: Vec<Vec<usize>> // adjacency list for every which will
+    pub v: usize,               // number of all nodes
+    pub e: usize,               // number of all edges
+    pub nodes: Vec<Vec<usize>>, // adjacency list for every which will
 }
-
 
 impl Graph {
     pub fn new(v: usize) -> Self {
@@ -19,7 +18,7 @@ impl Graph {
         Self {
             v,
             e: 0,
-            nodes: nodes_vec
+            nodes: nodes_vec,
         }
     }
 
@@ -33,7 +32,7 @@ impl Graph {
         self.adj(node).len()
     }
 
-    pub fn is_edge(&self, u: usize, w: usize ) -> bool {
+    pub fn is_edge(&self, u: usize, w: usize) -> bool {
         self.adj(u).contains(&w)
     }
 
@@ -42,27 +41,26 @@ impl Graph {
     }
 
     pub(crate) fn read_from_file(path: &str) -> Self {
-        let f1: BufReader<File> = BufReader::new(
-            File::open(path).expect("Not able to read file"));
+        let f1: BufReader<File> = BufReader::new(File::open(path).expect("Not able to read file"));
         let mut it = f1.lines();
         let n = it.next().unwrap().unwrap().parse::<usize>().unwrap();
         let mut graph = Graph::new(n);
         for line in it.map(|line| {
-                let l: Vec<usize> = line.unwrap().trim()
-                    .splitn(2, " ")
-                    .collect::<Vec<&str>>()
-                    .into_iter()
-                    .map(|x| x.trim().parse::<usize>().unwrap())
-                    .collect::<Vec<usize>>();
-            (l[0],l[1])
+            let l: Vec<usize> = line
+                .unwrap()
+                .trim()
+                .splitn(2, " ")
+                .collect::<Vec<&str>>()
+                .into_iter()
+                .map(|x| x.trim().parse::<usize>().unwrap())
+                .collect::<Vec<usize>>();
+            (l[0], l[1])
         }) {
             graph.add_edge(line.0, line.1);
         }
         graph
     }
 }
-
-
 
 #[cfg(test)]
 mod tests {
@@ -72,7 +70,11 @@ mod tests {
         let path = "./src/graph/graph.txt";
         let g = Graph::read_from_file(path);
         let dfs = depth_first_paths::DepthFirstPaths::new(0, &g);
-        println!("Has Path :: {:?}, Path:: {:?}", dfs.has_path(7), dfs.path(7));
+        println!(
+            "Has Path :: {:?}, Path:: {:?}",
+            dfs.has_path(7),
+            dfs.path(7)
+        );
     }
 }
 /*
