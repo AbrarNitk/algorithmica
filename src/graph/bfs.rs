@@ -41,8 +41,8 @@ impl<'a> BFS<'a> {
             for w in self.graph.adj(*front).iter() {
                 if !self.visited[*w] {
                     self.visited[*w] = true;
-                    self.dist[source] = self.dist[*front] + 1;
-                    self.parent[source] = *front;
+                    self.dist[*w] = self.dist[*front] + 1;
+                    self.parent[*w] = *front;
                 }
             }
         }
