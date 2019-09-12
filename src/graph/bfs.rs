@@ -26,6 +26,10 @@ impl<'a> BFS<'a> {
         self.visited[w]
     }
 
+    pub fn dist(&self, w: usize) -> usize {
+        self.dist[w]
+    }
+
     fn bfs(&mut self, source: usize) {
         let mut queue = Vec::new();
         queue.push(source);
