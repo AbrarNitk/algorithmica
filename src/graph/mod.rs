@@ -1,5 +1,6 @@
 use std::fs::File;
 use std::io::{BufRead, BufReader};
+pub mod bfs;
 pub mod depth_first_paths;
 
 #[derive(Debug)]
