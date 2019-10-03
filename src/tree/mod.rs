@@ -1,5 +1,5 @@
 pub mod bst;
-pub mod red_black;
+pub mod rb;
 
 #[derive(Debug)]
 pub struct Node {
