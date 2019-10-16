@@ -1,5 +1,4 @@
 use crate::graph::Graph;
-use crate::search::binary::search;
 
 pub struct BFS<'a> {
     source: usize,
