@@ -58,7 +58,15 @@ impl<Key: Ord, Value> RedBlackBST<Key, Value> {
                         leaf
                     }
                 };
-
+                if is_red(&leaf.left) && !is_red(&leaf.right) {
+                    leaf = rotate_left(leaf);
+                }
+                if is_red(&leaf.left) && is_red(&leaf.left.as_ref().as_ref().unwrap().left) {
+                    leaf = rotate_right(leaf);
+                }
+                if is_red(&leaf.left) && is_red(&leaf.right) {
+                    leaf = flip_colors(leaf);
+                }
                 Some(leaf)
             }
         }
@@ -76,8 +84,8 @@ fn rotate_left<Key: Ord, Value>(mut h: Node<Key, Value>) -> Node<Key, Value> {
     let mut x = h.right.take().unwrap();
     h.right = x.left;
     x.color = h.color;
-    x.left = Box::new(Some(h));
     h.color = Color::RED;
+    x.left = Box::new(Some(h));
     x
 }
 
@@ -85,22 +93,22 @@ fn rotate_right<Key: Ord, Value>(mut h: Node<Key, Value>) -> Node<Key, Value> {
     let mut x = h.left.take().unwrap();
     h.left = x.right;
     x.color = h.color;
-    x.right = Box::new(Some(h));
     h.color = Color::RED;
+    x.right = Box::new(Some(h));
     x
 }
 
-//impl<Key: Ord, Value> PartialEq for Node<Key, Value> {
-//    fn eq(&self, other: &Node<Key, Value>) -> bool {
-//        self == other
-//    }
-//}
-//
-//impl<Key: Ord, Value> Ord for Node<Key, Value> {
-//    fn cmp(&self, other: &Node<Key, Value>) -> Ordering {
-//        Ordering::Equal
-//    }
-//}
+fn flip_colors<Key: Ord, Value>(mut h: Node<Key, Value>) -> Node<Key, Value> {
+    if let Some(ref mut left) = h.left.as_mut() {
+        left.color = Color::BLACK;
+    }
+
+    if let Some(ref mut right) = h.right.as_mut() {
+        right.color = Color::BLACK;
+    }
+    h.color = Color::RED;
+    h
+}
 
 #[cfg(test)]
 mod tests {
