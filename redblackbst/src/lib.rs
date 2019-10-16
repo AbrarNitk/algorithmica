@@ -38,6 +38,9 @@ impl<Key: Ord, Value> RedBlackBST<Key, Value> {
 
     pub fn put(&mut self, key: Key, value: Value) {
         self.root = Self::insert(self.root.take(), key, value);
+        if let Some(root) = self.root.as_mut() {
+            root.color = Color::BLACK;
+        }
     }
 
     fn insert(node: Option<Node<Key, Value>>, key: Key, value: Value) -> Option<Node<Key, Value>> {
@@ -103,7 +106,7 @@ fn flip_colors<Key: Ord, Value>(mut h: Node<Key, Value>) -> Node<Key, Value> {
         left.color = Color::BLACK;
     }
 
-    if let Some(ref mut right) = h.right.as_mut() {
+    if let Some(right) = h.right.as_mut() {
         right.color = Color::BLACK;
     }
     h.color = Color::RED;
