@@ -7,7 +7,7 @@ pub enum Color {
 }
 
 #[derive(Debug)]
-pub struct Node<Key: Ord, Value> {
+struct Node<Key: Ord, Value> {
     key: Key,
     value: Value,
     color: Color,
