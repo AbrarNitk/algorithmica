@@ -153,5 +153,6 @@ mod tests {
         bst.put(1, "3");
         assert_eq!(bst.size(), 3);
         assert_eq!(bst.get(1), Some(&"3"));
+        assert_eq!(bst.get(4), None);
     }
 }
