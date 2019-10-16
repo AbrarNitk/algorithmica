@@ -1,6 +1,6 @@
 use std::cmp::{Ord, Ordering};
 
-#[derive(PartialEq, Copy, Clone)]
+#[derive(PartialEq)]
 pub enum Color {
     RED,
     BLACK,
