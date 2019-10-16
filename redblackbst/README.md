@@ -1,4 +1,4 @@
-#Red-Black Binary Search Tree
+# Red-Black Binary Search Tree
 
 ## How to use
 ```rust
