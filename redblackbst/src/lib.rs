@@ -1,11 +1,12 @@
 use std::cmp::{Ord, Ordering};
 
-#[derive(PartialEq)]
+#[derive(PartialEq, Debug)]
 pub enum Color {
     RED,
     BLACK,
 }
 
+#[derive(Debug)]
 pub struct Node<Key: Ord, Value> {
     key: Key,
     value: Value,
@@ -26,18 +27,27 @@ impl<Key: Ord, Value> Node<Key, Value> {
     }
 }
 
+#[derive(Debug)]
 pub struct RedBlackBST<Key: Ord, Value> {
     root: Option<Node<Key, Value>>,
     size: u64,
 }
 
 impl<Key: Ord, Value> RedBlackBST<Key, Value> {
+    pub fn new() -> Self {
+        Self {
+            root: None,
+            size: 0,
+        }
+    }
+
     pub fn size(&self) -> u64 {
         return self.size;
     }
 
     pub fn put(&mut self, key: Key, value: Value) {
         self.root = Self::insert(self.root.take(), key, value);
+        self.size += 1;
         if let Some(root) = self.root.as_mut() {
             root.color = Color::BLACK;
         }
@@ -48,11 +58,11 @@ impl<Key: Ord, Value> RedBlackBST<Key, Value> {
             None => Some(Node::new(key, value, Color::RED)),
             Some(mut leaf) => {
                 let mut leaf = match leaf.key.cmp(&key) {
-                    Ordering::Less => {
+                    Ordering::Greater => {
                         leaf.left = Box::new(Self::insert(leaf.left.take(), key, value));
                         leaf
                     }
-                    Ordering::Greater => {
+                    Ordering::Less => {
                         leaf.right = Box::new(Self::insert(leaf.right.take(), key, value));
                         leaf
                     }
@@ -61,7 +71,7 @@ impl<Key: Ord, Value> RedBlackBST<Key, Value> {
                         leaf
                     }
                 };
-                if is_red(&leaf.left) && !is_red(&leaf.right) {
+                if is_red(&leaf.right) && !is_red(&leaf.left) {
                     leaf = rotate_left(leaf);
                 }
                 if is_red(&leaf.left) && is_red(&leaf.left.as_ref().as_ref().unwrap().left) {
@@ -73,6 +83,25 @@ impl<Key: Ord, Value> RedBlackBST<Key, Value> {
                 Some(leaf)
             }
         }
+    }
+
+    pub fn get(&self, key: Key) -> Option<&Value> {
+        Self::search(&self.root, key)
+    }
+
+    fn search(node: &Option<Node<Key, Value>>, key: Key) -> Option<&Value> {
+        match node {
+            None => None,
+            Some(leaf) => match key.cmp(&leaf.key) {
+                Ordering::Less => Self::search(&leaf.left, key),
+                Ordering::Greater => Self::search(&leaf.right, key),
+                Ordering::Equal => Some(&leaf.value),
+            },
+        }
+    }
+
+    pub fn contains(&self, key: Key) -> bool {
+        Self::search(&self.root, key).is_some()
     }
 }
 
@@ -115,8 +144,14 @@ fn flip_colors<Key: Ord, Value>(mut h: Node<Key, Value>) -> Node<Key, Value> {
 
 #[cfg(test)]
 mod tests {
+
     #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
+    fn init_test() {
+        let mut bst = super::RedBlackBST::new();
+        bst.put(3, "1");
+        bst.put(2, "2");
+        bst.put(1, "3");
+        assert_eq!(bst.size(), 3);
+        assert_eq!(bst.get(1), Some(&"3"));
     }
 }
