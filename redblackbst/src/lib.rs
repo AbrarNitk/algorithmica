@@ -148,6 +148,23 @@ impl<Key: Ord, Value> RedBlackBST<Key, Value> {
             }
         })
     }
+
+    pub fn max(&self) -> Option<&Key> {
+        if self.is_empty() {
+            return Option::<&Key>::None;
+        }
+        self.get_max(&self.root).map(|node| &node.key)
+    }
+
+    fn get_max<'a>(&self, node: &'a Option<Node<Key, Value>>) -> Option<&'a Node<Key, Value>> {
+        node.as_ref().and_then(|ref data| {
+            if data.right.is_some() {
+                self.get_max(&data.right)
+            } else {
+                Some(data)
+            }
+        })
+    }
     //    pub fn floor(&self) -> Option<&Key> {}
     //    pub fn ceiling(&self) -> Option<&Key> {}
 }
