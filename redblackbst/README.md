@@ -13,3 +13,9 @@ fn how_use() {
     assert_eq!(bst.get(4), None);
 }
 ```
+
+## Functions added in version 0.1.1
+1. height
+2. is_empty
+3. min
+4. max
