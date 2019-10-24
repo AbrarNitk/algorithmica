@@ -129,6 +129,9 @@ impl<Key: Ord, Value> RedBlackBST<Key, Value> {
         }
     }
 
+    pub fn is_empty(&self) -> bool {
+        self.root.is_none()
+    }
     //    pub fn floor(&self) -> Option<&Key> {}
     //    pub fn ceiling(&self) -> Option<&Key> {}
 }
