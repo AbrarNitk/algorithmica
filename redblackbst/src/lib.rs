@@ -132,6 +132,22 @@ impl<Key: Ord, Value> RedBlackBST<Key, Value> {
     pub fn is_empty(&self) -> bool {
         self.root.is_none()
     }
+
+    pub fn min(&self) -> Option<&Key> {
+        if self.is_empty() {
+            return Option::<&Key>::None;
+        }
+        self.get_min(&self.root).map(|node| &node.key)
+    }
+    fn get_min<'a>(&self, node: &'a Option<Node<Key, Value>>) -> Option<&'a Node<Key, Value>> {
+        node.as_ref().and_then(|ref data| {
+            if data.left.is_some() {
+                self.get_min(&data.left)
+            } else {
+                Some(data)
+            }
+        })
+    }
     //    pub fn floor(&self) -> Option<&Key> {}
     //    pub fn ceiling(&self) -> Option<&Key> {}
 }
