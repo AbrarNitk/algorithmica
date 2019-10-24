@@ -33,6 +33,15 @@ pub struct RedBlackBST<Key: Ord, Value> {
     size: u64,
 }
 
+impl<Key: Ord, Value> Default for RedBlackBST<Key, Value> {
+    fn default() -> Self {
+        Self {
+            root: None,
+            size: 0,
+        }
+    }
+}
+
 impl<Key: Ord, Value> RedBlackBST<Key, Value> {
     pub fn new() -> Self {
         Self {
@@ -42,7 +51,7 @@ impl<Key: Ord, Value> RedBlackBST<Key, Value> {
     }
 
     pub fn size(&self) -> u64 {
-        return self.size;
+        self.size
     }
 
     pub fn put(&mut self, key: Key, value: Value) {
@@ -103,6 +112,25 @@ impl<Key: Ord, Value> RedBlackBST<Key, Value> {
     pub fn contains(&self, key: Key) -> bool {
         Self::search(&self.root, key).is_some()
     }
+
+    pub fn height(&self) -> u64 {
+        RedBlackBST::bst_height(&self.root)
+    }
+
+    fn bst_height(node: &Option<Node<Key, Value>>) -> u64 {
+        match node {
+            Some(node) => {
+                u64::max(
+                    RedBlackBST::bst_height(&node.left),
+                    RedBlackBST::bst_height(&node.right),
+                ) + 1
+            }
+            None => 0,
+        }
+    }
+
+    //    pub fn floor(&self) -> Option<&Key> {}
+    //    pub fn ceiling(&self) -> Option<&Key> {}
 }
 
 fn is_red<Key: Ord, Value>(node: &Option<Node<Key, Value>>) -> bool {
@@ -147,7 +175,7 @@ mod tests {
 
     #[test]
     fn init_test() {
-        let mut bst = super::RedBlackBST::new();
+        let mut bst = super::RedBlackBST::default();
         bst.put(3, "1");
         bst.put(2, "2");
         bst.put(1, "3");
