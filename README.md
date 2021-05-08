@@ -1,6 +1,12 @@
 # algorithmica
 This Repo contains algorithms related stuff.
 
+Find the documentation on [FifthTry](https://www.fifthtry.com/abrar/rust-algorithms/)
+
+## Contributing
+
+Contributors are most welcome, raise a Pull request on Github with doc change request on FifthTry. 
+
 ## Math
 Numerical Analysis, 
 -- 
