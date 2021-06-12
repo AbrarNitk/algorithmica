@@ -1,4 +1,4 @@
-# algorithmica
+# Algorithmica
 This Repo contains algorithms related stuff.
 
 Find the documentation on [FifthTry](https://www.fifthtry.com/abrar/rust-algorithms/)
