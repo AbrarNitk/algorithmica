@@ -1,5 +1,6 @@
 use std::cmp::{Ord, Ordering};
 
+#[allow(clippy::upper_case_acronyms)]
 #[derive(PartialEq, Debug)]
 pub enum Color {
     RED,

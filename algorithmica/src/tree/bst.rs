@@ -1,6 +1,7 @@
 use std::cmp::Ord;
 use std::cmp::Ordering;
 
+#[allow(clippy::upper_case_acronyms)]
 #[derive(Debug)]
 pub enum BST<T: Ord> {
     Leaf {
@@ -33,7 +34,7 @@ impl<T: Ord> BST<T> {
             } => match new_value.cmp(value) {
                 Ordering::Less => left.insert(new_value),
                 Ordering::Greater => right.insert(new_value),
-                _ => return,
+                _ => {}
             },
             BST::Empty => {
                 *self = BST::create(new_value);

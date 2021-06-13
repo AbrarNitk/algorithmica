@@ -11,7 +11,7 @@ where
     if &list[mid as usize] == element {
         return true;
     }
-    if &list[mid as usize] > &element {
+    if list[mid as usize].gt(element) {
         return binary_search_util(list, element, start, mid - 1);
     }
     binary_search_util(list, element, mid + 1, end)
@@ -21,5 +21,5 @@ pub fn search<T>(list: &[T], element: &T) -> bool
 where
     T: PartialOrd,
 {
-    !(list.is_empty() == true) && binary_search_util(list, element, 0, (list.len() - 1) as isize)
+    !list.is_empty() && binary_search_util(list, element, 0, (list.len() - 1) as isize)
 }

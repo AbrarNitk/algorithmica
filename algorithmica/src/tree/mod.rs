@@ -25,9 +25,9 @@ impl Node {
                 } else {
                     node.right = Node::add_new(node.right, value);
                 }
-                return Some(node);
+                Some(node)
             }
-            None => return Some(Node::create(value)),
+            None => Some(Node::create(value)),
         }
     }
 }

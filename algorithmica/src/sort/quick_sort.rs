@@ -2,18 +2,17 @@ use std::cmp::Ord;
 
 fn quick_sort<T>(list: &mut [T], start: usize, end: usize)
 where
-    T: Ord + Clone,
+    T: Ord,
 {
     if start >= end {
         return;
     }
 
-    let pivot = list[end].clone();
     let mut i = start;
     let mut j = start;
 
     while j < end {
-        if list[j] < pivot {
+        if list[j].lt(&list[end]) {
             list.swap(i, j);
             i += 1;
         }
@@ -29,7 +28,7 @@ where
 
 pub fn sort<T>(list: &mut [T])
 where
-    T: Ord + Clone,
+    T: Ord,
 {
     if list.is_empty() || list.len() == 1 {
         return;

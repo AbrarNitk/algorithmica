@@ -1,5 +1,5 @@
 use crate::graph::Graph;
-
+#[allow(dead_code)]
 pub struct DiDFS<'a> {
     source: usize,
     visited: Vec<bool>,

@@ -14,9 +14,9 @@ impl<'a> DepthFirstPaths<'a> {
         let parent = vec![0; graph.v];
         let mut container = Self {
             source,
-            graph,
             visited,
             parent,
+            graph,
         };
         container.dfs(source);
         container
@@ -30,8 +30,7 @@ impl<'a> DepthFirstPaths<'a> {
             return vec![];
         }
 
-        let mut path_stack = Vec::new();
-        path_stack.push(w);
+        let mut path_stack = vec![w];
         let mut w = w;
         while w != self.source {
             w = self.parent[w];

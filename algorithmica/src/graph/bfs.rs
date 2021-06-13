@@ -1,6 +1,8 @@
 use crate::graph::Graph;
 
+#[allow(clippy::upper_case_acronyms)]
 pub struct BFS<'a> {
+    #[allow(dead_code)]
     source: usize,
     visited: Vec<bool>,
     parent: Vec<usize>,
@@ -30,8 +32,7 @@ impl<'a> BFS<'a> {
     }
 
     fn bfs(&mut self, source: usize) {
-        let mut queue = Vec::new();
-        queue.push(source);
+        let queue = vec![source];
         self.visited[source] = true;
         self.dist[source] = 0;
         self.parent[source] = 0; // TODO: Fix Me
