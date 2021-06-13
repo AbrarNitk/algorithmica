@@ -1,15 +1,14 @@
 fn sort_by(arr: &mut [i32]) {}
 
-fn sort(arr: &mut [i32]) {
+fn sort<T: Ord>(arr: &mut [T]) {
     for x in (0..=(arr.len() - 1) / 2).rev() {
         sink(arr, x, (arr.len() - 1));
     }
+
     let k = 0;
     let mut l = arr.len() - 1;
     while l > 0 {
-        let temp = arr[k];
-        arr[k] = arr[l];
-        arr[l] = temp;
+        arr.swap(k, l);
         l = l - 1;
         sink(arr, 0, l);
     }
@@ -30,7 +29,7 @@ pub fn swim(arr: &mut [i32], k: usize) {
     }
 }
 
-pub fn sink(arr: &mut [i32], k: usize, n: usize) {
+pub fn sink<T: Ord>(arr: &mut [T], k: usize, n: usize) {
     let mut k = k;
     while 2 * k + 1 <= n {
         let mut j = 2 * k + 1;
@@ -38,9 +37,7 @@ pub fn sink(arr: &mut [i32], k: usize, n: usize) {
             j += 1;
         }
         if arr[j] > arr[k] {
-            let temp = arr[j];
-            arr[j] = arr[k];
-            arr[k] = temp;
+            arr.swap(k, j);
             k = j;
         } else {
             break;
