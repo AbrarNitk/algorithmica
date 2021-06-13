@@ -14,14 +14,12 @@ fn sort<T: Ord>(arr: &mut [T]) {
     }
 }
 
-pub fn swim(arr: &mut [i32], k: usize) {
+pub fn swim<T>(arr: &mut [T], k: usize) {
     let mut k = k;
     while k > 0 {
         let parent = (k - 1) / 2;
         if arr[parent] < arr[k] {
-            let temp = arr[parent];
-            arr[parent] = arr[k];
-            arr[k] = temp;
+            arr.swap(parent, k);
             k = parent;
         } else {
             break;
