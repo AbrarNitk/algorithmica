@@ -1,0 +1,5 @@
+-- h0: Heap Sort
+
+Heap Sort is a sorting algorithm which sorts array in-place.
+
+It maintains relationship in array as parent and child way.
