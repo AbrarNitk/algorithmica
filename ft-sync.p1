@@ -1,6 +1,7 @@
 -- ft-sync:
 mode: local-to-remote
 backend: ftd
+root: docs
 repo: https://github.com/fifthtry/rust-book
 collection: testuser/rust-algorithms
 
