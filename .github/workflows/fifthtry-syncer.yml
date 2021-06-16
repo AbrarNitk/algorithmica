@@ -1,0 +1,27 @@
+name: "FifthTry Syncer"
+on:
+  push:
+    branches:
+      - master
+jobs:
+  everything:
+    name: ft sync
+    runs-on: macos-10.15
+    env:
+      FT_AUTH_CODE: ${{ secrets.FT_AUTH_CODE }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Install ft-cli
+        run: |
+          mkdir bin
+          curl -sSL https://github.com/fifthtry/ft-cli/releases/download/0.1.0/ft-0.1.0-x86_64-apple-darwin.gz | gunzip > bin/ft
+          chmod a+x bin/ft
+          echo "$(pwd)/bin" >> ${GITHUB_PATH}
+      - name: Running ft-sync status
+        run: ft status
+      - name: Running ft-sync sync
+        run: ft sync
+      - name: Running ft-sync status
+        run: ft status
