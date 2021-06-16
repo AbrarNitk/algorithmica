@@ -3,7 +3,7 @@ mode: local-to-remote
 backend: ftd
 root: docs
 repo: https://github.com/AbrarNitk/algorithmica
-collection: testuser/rust-algorithms
+collection: abrar/rust-algorithms
 
 
 
