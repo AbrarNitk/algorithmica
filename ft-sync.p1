@@ -1,0 +1,26 @@
+-- ft-sync:
+mode: local-to-remote
+backend: ftd
+repo: https://github.com/fifthtry/rust-book
+collection: testuser/rust-algorithms
+
+
+
+-- meta:
+git-repo: https://github.com/fifthtry/rust-book
+lang: en
+
+--- reader:
+who: everyone
+
+--- writer:
+username: sourabh
+
+--- admin:
+username: amitu
+
+--- admin:
+username: wilderbit
+
+--- admin:
+username: mxfunc

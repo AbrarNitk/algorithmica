@@ -1,0 +1,98 @@
+-- h1: Algorithmica [Rust Implementation]
+
+
+
+-- meta:
+
+--- reader:
+who: everyone
+
+--- admin:
+username: wilderbit
+
+
+
+-- markdown:
+
+Implementation of Algorithms in Rust
+
+
+
+-- h0: References
+
+
+
+-- markdown:
+
+- [Princeton Algorithms](https://algs4.cs.princeton.edu/)
+- [Introduction to Algorithms](https://en.wikipedia.org/wiki/Introduction_to_Algorithms)
+- [The Art of Computer Programming](https://en.wikipedia.org/wiki/The_Art_of_Computer_Programming)
+
+
+
+-- toc:
+
+- abrar/rust-algorithms/sorting
+  Sorting
+  - abrar/rust-algorithms/bubble-sort
+    Bubble Sort
+  - abrar/rust-algorithms/sorting/selection-sort
+    Selection Sort
+  - abrar/rust-algorithms/sorting/insertion-sort
+    Insertion Sort
+  - abrar/rust-algorithms/sorting/quick-sort
+    Quick Sort
+  - abrar/rust-algorithms/sorting/merge-sort
+    Merge Sort
+  - abrar/rust-algorithms/sorting/shell-sort
+    Shell Sort
+  - abrar/rust-algorithms/sorting/heap-sort
+    Heap Sort
+  - abrar/rust-algorithms/sorting/counting-sort
+    Counting Sort
+  - abrar/rust-algorithms/sorting/bucket-sort
+    Bucket Sort
+  - abrar/rust-algorithms/sorting/real-problems
+    Real World Problems
+- abrar/rust-algorithms/search
+  Search
+  - abrar/rust-algorithms/linear-search
+    Linear Search
+  - abrar/rust-algorithms/binary-search
+    Binary Search
+    - abrar/rust-algorithms/binary-search/iterative
+      Binary Search Iterative
+    - abrar/rust-algorithms/binary-search/recursive
+      Binary Search Recursive
+    - abrar/rust-algorithms/binary-search/problems
+      Binary Search Problems
+  - abrar/rust-algorithms/binary-search-tree
+    Binary Search Tree
+  - abrar/rust-algorithms/two-three-tree
+    2-3 Tree
+  - abrar/rust-algorithms/red-black-bst
+    Red Black BST
+  - abrar/rust-algorithms/hash-table
+    Hash Table
+- abrar/rust-algorithms/string
+  String
+  - abrar/rust-algorithms/string/sort
+    String Sort
+  - abrar/rust-algorithms/string/search
+    String Search
+  - abrar/rust-algorithms/string/tries
+    Tries
+  - abrar/rust-algorithms/string/regex
+    Regular Expression
+  - abrar/rust-algorithms/string/compression
+    Data Compression Algos
+- abrar/rust-algorithms/graph
+  Graph
+  - abrar/rust-algorithms/graph/undirected
+    Undirected Graph
+  - abrar/rust-algorithms/graph/directed
+    Directed Graph
+  - abrar/rust-algorithms/graph/msts
+    Minimum Spanning Trees
+  - abrar/rust-algorithms/graph/shortest-paths
+    Shortest Paths

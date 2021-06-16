@@ -1,0 +1,44 @@
+-- h0: Sorting
+
+
+
+-- markdown:
+
+Sorting is a process of arranging the elements in a sequence, so that we can put them
+in a logical order.
+
+
+
+[Sorting Algo Animation](https://www.toptal.com/developers/sorting-algorithms)
+ by David Martin.
+
+
+[Sorting visualizations](http://sorting.at/) by Carlo Zapponi, using inversion
+count as a measure of progress.
+
+
+
+-- h1: The Sound of Quick Sort
+
+
+
+-- youtube:
+src: m1PS8IR6Td0
+
+
+
+-- h1: Robot visualizations of Quick Sort
+
+
+
+-- youtube:
+src: aXXWXz5rF64
+
+
+
+-- h1: Robot visualizations of Merge Sort
+
+
+
+-- youtube:
+src: es2T6KY45cA

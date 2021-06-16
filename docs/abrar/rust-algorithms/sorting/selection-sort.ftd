@@ -1,0 +1,30 @@
+-- h0: Selection Sort
+
+
+
+-- markdown:
+
+Selection Sort an iterative sorting algorithm which can sort an array of elements
+in ascending or descending order.
+
+Selection sort is a sorting algorithm that selects the smallest element from an
+unsorted list in each iteration and places that element at the beginning of the
+unsorted list.
+
+
+
+-- h1: Selection Sort with Gypsy folk dance
+
+
+
+-- youtube:
+src: Ns4TPTC8whw
+
+
+
+-- h1: Rust Implementation
+
+
+
+-- iframe:
+src: https://play.rust-lang.org/?version=stable&mode=debug&edition=2018&code=pub%20fn%20sort%3CT%3E(list%3A%20%26mut%20%5BT%5D)%0Awhere%0A%20%20%20%20T%3A%20std%3A%3Acmp%3A%3AOrd%2C%0A%7B%0A%20%20%20%20let%20n%20%3D%20list.len()%3B%0A%20%20%20%20for%20i%20in%200..n%20-%201%20%7B%0A%20%20%20%20%20%20%20%20let%20mut%20min_index%20%3D%20i%3B%0A%20%20%20%20%20%20%20%20for%20j%20in%20i%20%2B%201..n%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20list%5Bmin_index%5D%20%3E%20list%5Bj%5D%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20min_index%20%3D%20j%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20if%20i%20!%3D%20min_index%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20list.swap(i%2C%20min_index)%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%7D%0A%0A%0Afn%20main()%20%7B%0A%20%20%20%20let%20mut%20v%20%3D%20vec!%5B1%2C2%2C3%2C4%2C5%2C6%2C7%2C8%5D%3B%0A%20%20%20%20v.reverse()%3B%0A%20%20%20%20sort(%26mut%20v)%3B%0A%20%20%20%20assert_eq!(v%2C%20vec!%5B1%2C2%2C3%2C4%2C5%2C6%2C7%2C8%5D)%3B%0A%20%20%20%20%0A%7D
