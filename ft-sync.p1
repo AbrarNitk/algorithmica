@@ -2,26 +2,17 @@
 mode: local-to-remote
 backend: ftd
 root: docs
-repo: https://github.com/fifthtry/rust-book
+repo: https://github.com/AbrarNitk/algorithmica
 collection: testuser/rust-algorithms
 
 
 
 -- meta:
-git-repo: https://github.com/fifthtry/rust-book
 lang: en
+git-repo: https://github.com/AbrarNitk/algorithmica
 
 --- reader:
 who: everyone
 
---- writer:
-username: sourabh
-
---- admin:
-username: amitu
-
 --- admin:
 username: wilderbit
-
---- admin:
-username: mxfunc
