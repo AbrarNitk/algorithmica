@@ -1,11 +1,11 @@
 pub mod digraph;
 pub mod graph;
 pub mod math;
+pub mod pq;
 pub mod search;
 pub mod sort;
 pub mod subset;
 pub mod tree;
-pub mod pq;
 
 #[cfg(test)]
 mod tests {

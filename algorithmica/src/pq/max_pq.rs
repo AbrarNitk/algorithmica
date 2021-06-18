@@ -3,12 +3,11 @@ pub struct MaxPQ {
     n: usize,
 }
 
-
 impl MaxPQ {
     pub fn from_capacity(capacity: usize) -> Self {
         Self {
             q: Vec::with_capacity(capacity + 1),
-            n: 0
+            n: 0,
         }
     }
 
@@ -16,17 +15,36 @@ impl MaxPQ {
         Self::from_capacity(1)
     }
 
-
-
     pub fn del_max(&self) -> i32 {
         0
     }
 
-    pub fn insert(&self, value: i32) {}
+    pub fn insert(&mut self, value: i32) {
+        self.n += 1;
+        self.q.insert(self.n, value);
+        self.swim(self.n)
+    }
 
-    fn sink(&self) {}
+    fn sink(&mut self, mut k: usize) {
+        while 2 * k <= self.n {
+            let mut j = 2 * k;
+            if j < self.n && self.less(j, j + 1) {
+                j += 1
+            }
+            if !self.less(k, j) {
+                break;
+            }
+            self.exchange(k, j);
+            k = j;
+        }
+    }
 
-    fn swim(&self) {}
+    fn swim(&mut self, mut k: usize) {
+        while k > 1 && self.less(k / 2, 2) {
+            self.exchange(k / 2, k);
+            k /= 2;
+        }
+    }
 
     pub fn is_empty(&self) -> bool {
         self.n == 0
@@ -48,5 +66,4 @@ impl MaxPQ {
     fn exchange(&mut self, i: usize, j: usize) {
         self.q.swap(i, j)
     }
-
 }
