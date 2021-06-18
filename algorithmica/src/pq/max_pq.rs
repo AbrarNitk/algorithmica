@@ -15,8 +15,12 @@ impl MaxPQ {
         Self::from_capacity(1)
     }
 
-    pub fn del_max(&self) -> i32 {
-        0
+    pub fn del_max(&mut self) -> i32 {
+        let max= self.q[1];
+        self.exchange(1, self.n);
+        self.n -= 1;
+        self.sink(1);
+        max
     }
 
     pub fn insert(&mut self, value: i32) {
