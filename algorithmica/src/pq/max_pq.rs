@@ -3,6 +3,12 @@ pub struct MaxPQ {
     n: usize,
 }
 
+impl Default for MaxPQ {
+    fn default() -> Self {
+        MaxPQ::from_capacity(1)
+    }
+}
+
 impl MaxPQ {
     pub fn from_capacity(capacity: usize) -> Self {
         Self {
@@ -11,8 +17,17 @@ impl MaxPQ {
         }
     }
 
-    pub fn from() -> Self {
-        Self::from_capacity(1)
+    pub fn from_arr(v: Vec<i32>)  -> Self {
+        let n = v.len();
+        let mut q = Vec::with_capacity(n+ 1);
+        for i in 0..n {
+            q[i + 1] = v[i];
+        }
+        let mut max_pq = Self { q, n };
+        for i in (1..=n/2).rev() {
+            max_pq.sink(i);
+        }
+        max_pq
     }
 
     pub fn del_max(&mut self) -> i32 {
