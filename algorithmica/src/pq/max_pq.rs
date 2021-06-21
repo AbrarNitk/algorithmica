@@ -20,7 +20,7 @@ impl MaxPQ {
     pub fn from_arr(v: Vec<i32>) -> Self {
         let n = v.len();
         let mut q = Vec::with_capacity(n + 1);
-        q.resize_with(n + 1, || 0);
+        q.resize_with(n + 1, Default::default);
         for i in 0..n {
             q.insert(i + 1, v[i]);
         }
@@ -60,7 +60,6 @@ impl MaxPQ {
     }
 
     fn swim(&mut self, mut k: usize) {
-
         while k > 1 && self.less(k / 2, k) {
             self.exchange(k / 2, k);
             k /= 2;
