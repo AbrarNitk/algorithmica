@@ -41,8 +41,7 @@ impl Graph {
         self.nodes.get(node).unwrap()
     }
 
-    #[allow(dead_code)]
-    pub(crate) fn read_from_file(path: &str) -> Self {
+    pub fn read_from_file(path: &str) -> Self {
         let f1: BufReader<File> = BufReader::new(File::open(path).expect("Not able to read file"));
         let mut it = f1.lines();
         let n = it.next().unwrap().unwrap().parse::<usize>().unwrap();
