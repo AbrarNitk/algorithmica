@@ -48,5 +48,4 @@ impl<'a> BFS<'a> {
     }
 }
 
-
 // perl -le 'for(1..416){printf "%4d %4d\n", int(rand(4124))+1, int(rand(4124))+1}'

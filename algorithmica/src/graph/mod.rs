@@ -1,6 +1,7 @@
 use std::fs::File;
 use std::io::{BufRead, BufReader};
 pub mod bfs;
+pub mod connected_component;
 pub mod depth_first_paths;
 
 #[derive(Debug)]
@@ -88,6 +89,22 @@ mod tests {
             dfs.has_path(7),
             dfs.path(7)
         );
+    }
+
+    #[test]
+    fn connected_component() {
+        let path = "./src/graph/graph2.txt";
+        let g = Graph::read_from_file(path);
+        let cc = connected_component::ConnectedComponent::new(&g);
+        assert_eq!(cc.count(), 3924)
+    }
+
+    #[test]
+    fn connected_component2() {
+        let path = "./src/graph/graph2.txt";
+        let g = Graph::read_from_file(path);
+        let cc = connected_component::ConnectedComponent::new(&g);
+        assert_eq!(cc.id(3905), 233)
     }
 }
 
