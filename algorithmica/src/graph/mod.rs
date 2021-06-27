@@ -77,7 +77,20 @@ mod tests {
             dfs.path(7)
         );
     }
+
+    #[test]
+    fn test_read_file2() {
+        let path = "./src/graph/graph2.txt";
+        let g = Graph::read_from_file(path);
+        let dfs = depth_first_paths::DepthFirstPaths::new(0, &g);
+        println!(
+            "Has Path :: {:?}, Path:: {:?}",
+            dfs.has_path(7),
+            dfs.path(7)
+        );
+    }
 }
+
 /*
 input type
 1. Number of nodes (n)
