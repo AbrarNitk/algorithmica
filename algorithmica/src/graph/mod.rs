@@ -106,6 +106,14 @@ mod tests {
         let cc = connected_component::ConnectedComponent::new(&g);
         assert_eq!(cc.id(3905), 233)
     }
+
+    #[test]
+    fn connected_component3() {
+        let path = "./src/graph/graph3.txt";
+        let g = Graph::read_from_file(path);
+        let cc = connected_component::ConnectedComponent::new(&g);
+        assert_eq!(cc.count(), 3)
+    }
 }
 
 /*
