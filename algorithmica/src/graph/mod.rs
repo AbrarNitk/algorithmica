@@ -124,6 +124,14 @@ mod tests {
         let bp = bipartite::Bipartite::new(&g, 0);
         assert_eq!(bp.is_bipartite(), false)
     }
+
+    #[test]
+    fn bipartite_large() {
+        let path = "./src/graph/graph5.txt";
+        let g = Graph::read_from_file(path);
+        let bp = bipartite::Bipartite::new(&g, 0);
+        assert_eq!(bp.is_bipartite(), false)
+    }
 }
 
 /*
