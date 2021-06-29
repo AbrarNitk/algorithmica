@@ -1,6 +1,7 @@
 use std::fs::File;
 use std::io::{BufRead, BufReader};
 pub mod bfs;
+pub mod bipartite;
 pub mod connected_component;
 pub mod depth_first_paths;
 
