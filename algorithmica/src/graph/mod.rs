@@ -3,6 +3,7 @@ use std::io::{BufRead, BufReader};
 pub mod bfs;
 pub mod bipartite;
 pub mod connected_component;
+pub mod cycle;
 pub mod depth_first_paths;
 
 #[derive(Debug)]
@@ -114,6 +115,14 @@ mod tests {
         let g = Graph::read_from_file(path);
         let cc = connected_component::ConnectedComponent::new(&g);
         assert_eq!(cc.count(), 3)
+    }
+
+    #[test]
+    fn bipartite() {
+        let path = "./src/graph/graph4.txt";
+        let g = Graph::read_from_file(path);
+        let bp = bipartite::Bipartite::new(&g, 0);
+        assert_eq!(bp.is_bipartite(), false)
     }
 }
 
