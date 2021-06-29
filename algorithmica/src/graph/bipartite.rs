@@ -38,6 +38,7 @@ impl<'a> Bipartite<'a> {
                 self.dfs(*v);
             }
             // If there is an odd cycle occur in the graph, means graph is not bipartite
+            // Find the cycle
             if self.color[*v] == self.color[w] {
                 self.is_bipartite = false;
             }
