@@ -21,8 +21,8 @@ impl MaxPQ {
         let n = v.len();
         let mut q = Vec::with_capacity(n + 1);
         q.resize_with(n + 1, Default::default);
-        for i in 0..n {
-            q.insert(i + 1, v[i]);
+        for (i, item) in v.into_iter().enumerate().take(n) {
+            q.insert(i + 1, item);
         }
         let mut max_pq = Self { q, n };
         for i in (1..=n / 2).rev() {

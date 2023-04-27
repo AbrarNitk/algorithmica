@@ -21,7 +21,7 @@ pub fn multiply<
         for j in 0..m2_col {
             let mut c = 0.0;
             for k in 0..m2_row {
-                c += (&mat1.as_ref()[i]).as_ref()[k] * (&mat2.as_ref()[k]).as_ref()[j];
+                c += (mat1.as_ref()[i]).as_ref()[k] * (mat2.as_ref()[k]).as_ref()[j];
             }
             v.push(c);
         }
@@ -37,7 +37,7 @@ pub fn add<Matrix: AsRef<[Row]>, Row: AsRef<[f32]>>(mat1: &Matrix, mat2: &Matrix
     for i in 0..m1_row {
         let mut new_row = vec![];
         for j in 0..m1_col {
-            new_row.push((&mat1.as_ref()[i]).as_ref()[j] + (&mat2.as_ref()[i]).as_ref()[j]);
+            new_row.push((mat1.as_ref()[i]).as_ref()[j] + (mat2.as_ref()[i]).as_ref()[j]);
         }
         result.push(new_row);
     }

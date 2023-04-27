@@ -10,7 +10,7 @@ pub fn subset_util<T>(
     for index in st..end {
         reserve.push(arr[index].clone());
         subsets.push(reserve.clone());
-        subset_util(&arr, index + 1, end, reserve, subsets);
+        subset_util(arr, index + 1, end, reserve, subsets);
         reserve.pop();
     }
 }

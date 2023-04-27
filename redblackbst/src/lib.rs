@@ -140,8 +140,9 @@ impl<Key: Ord, Value> RedBlackBST<Key, Value> {
         }
         self.get_min(&self.root).map(|node| &node.key)
     }
+    #[allow(clippy::only_used_in_recursion)]
     fn get_min<'a>(&self, node: &'a Option<Node<Key, Value>>) -> Option<&'a Node<Key, Value>> {
-        node.as_ref().and_then(|ref data| {
+        node.as_ref().and_then(|data| {
             if data.left.is_some() {
                 self.get_min(&data.left)
             } else {
@@ -157,8 +158,9 @@ impl<Key: Ord, Value> RedBlackBST<Key, Value> {
         self.get_max(&self.root).map(|node| &node.key)
     }
 
+    #[allow(clippy::only_used_in_recursion)]
     fn get_max<'a>(&self, node: &'a Option<Node<Key, Value>>) -> Option<&'a Node<Key, Value>> {
-        node.as_ref().and_then(|ref data| {
+        node.as_ref().and_then(|data| {
             if data.right.is_some() {
                 self.get_max(&data.right)
             } else {
