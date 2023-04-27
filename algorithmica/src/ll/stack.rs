@@ -1,4 +1,3 @@
-
 pub struct Node<T> {
     data: T,
     next: Link<T>,
@@ -8,6 +7,10 @@ type Link<T> = Option<std::rc::Rc<Node<T>>>;
 
 pub struct Stack<T> {
     head: Link<T>,
+}
+
+pub struct Iter<'a, T> {
+    next: Option<&'a Node<T>>,
 }
 
 impl<T> Stack<T> {
@@ -38,4 +41,18 @@ impl<T> Stack<T> {
         self.head.as_deref()
     }
 
+    pub fn iter(&self) -> Iter<T> {
+        Iter { next: self.head() }
+    }
+}
+
+impl<'a, T> Iterator for Iter<'a, T> {
+    type Item = &'a T;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        self.next.map(|x| {
+            self.next = x.next.as_deref();
+            &x.data
+        })
+    }
 }
