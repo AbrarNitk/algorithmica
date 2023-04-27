@@ -57,6 +57,19 @@ impl<'a, T> Iterator for Iter<'a, T> {
     }
 }
 
+impl<T> Drop for Stack<T> {
+    fn drop(&mut self) {
+        let mut head = self.head.take();
+        while let Some(rc_node) = head {
+            if let Ok(mut node) = std::rc::Rc::try_unwrap(rc_node) {
+                head = node.next.take();
+            } else {
+                break;
+            }
+        }
+    }
+}
+
 #[cfg(test)]
 mod test {
     #[test]
