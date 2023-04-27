@@ -56,3 +56,21 @@ impl<'a, T> Iterator for Iter<'a, T> {
         })
     }
 }
+
+#[cfg(test)]
+mod test {
+    #[test]
+    fn stack_test() {
+        let stack = super::Stack::new()
+            .prepend(1)
+            .prepend(2)
+            .prepend(3)
+            .prepend(4);
+        let mut stack_it = stack.iter();
+        assert_eq!(Some(&4), stack_it.next());
+        assert_eq!(Some(&3), stack_it.next());
+        assert_eq!(Some(&2), stack_it.next());
+        assert_eq!(Some(&1), stack_it.next());
+        assert_eq!(None, stack_it.next());
+    }
+}
