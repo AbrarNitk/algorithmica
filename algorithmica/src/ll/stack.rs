@@ -13,9 +13,15 @@ pub struct Iter<'a, T> {
     next: Option<&'a Node<T>>,
 }
 
+impl<T> Default for Stack<T> {
+    fn default() -> Self {
+        Self { head: None }
+    }
+}
+
 impl<T> Stack<T> {
     pub fn new() -> Self {
-        Self { head: None }
+        Self::default()
     }
 
     pub fn prepend(&self, data: T) -> Stack<T> {

@@ -35,17 +35,16 @@ where
     }
 
     if list[mid] < list[end] {
-        if &list[mid] < element && element <= &list[end] {
+        return if &list[mid] < element && element <= &list[end] {
             search_rotated_util(list, element, mid + 1, end)
         } else {
             search_rotated_util(list, element, start, mid - 1)
-        }
+        };
+    }
+    if &list[start] <= element && element <= &list[mid] {
+        search_rotated_util(list, element, start, mid - 1)
     } else {
-        if &list[start] <= element && element <= &list[mid] {
-            search_rotated_util(list, element, start, mid - 1)
-        } else {
-            search_rotated_util(list, element, mid + 1, end)
-        }
+        search_rotated_util(list, element, mid + 1, end)
     }
 }
 
@@ -58,7 +57,7 @@ where
         return false;
     }
 
-    return search_rotated_util(list, element, 0, list.len() - 1);
+    search_rotated_util(list, element, 0, list.len() - 1)
 }
 
 #[cfg(test)]
