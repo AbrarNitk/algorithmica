@@ -43,6 +43,33 @@ impl<T> RefCell<T> {
             }
         }
     }
+
+    pub fn replace_with<F>(&self, f: F) -> Option<T>
+    where
+        F: FnOnce(&mut T) -> T,
+    {
+        match self.state.get() {
+            RefState::Unshared => {
+                let old = unsafe { &mut *self.value.get() };
+                let new = f(old);
+                Some(std::mem::replace(unsafe { &mut *self.value.get() }, new))
+            }
+            _ => {
+                // If any other reference is shared, value should not be replaced or updated
+                None
+            }
+        }
+    }
+
+    pub fn replace(&self, value: T) -> Option<T> {
+        match self.state.get() {
+            RefState::Unshared => Some(std::mem::replace(unsafe { &mut *self.value.get() }, value)),
+            _ => {
+                // If any other reference is shared, value should not be replaced or updated
+                None
+            }
+        }
+    }
 }
 
 pub struct Ref<'refcell, T> {
