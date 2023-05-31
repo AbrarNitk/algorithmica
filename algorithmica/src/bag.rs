@@ -15,7 +15,7 @@ pub struct Bag<Item> {
 }
 
 pub struct Iter<'a, Item> {
-    current: &'a Link<Item>,
+    current: Option<&'a Node<Item>>,
 }
 
 impl<Item> Default for Bag<Item> {
@@ -41,7 +41,7 @@ impl<Item> Bag<Item> {
 
     pub fn iter(&self) -> Iter<Item> {
         Iter {
-            current: &self.head,
+            current: self.head.as_deref(),
         }
     }
 }
@@ -49,9 +49,9 @@ impl<Item> Bag<Item> {
 impl<'a, Item> Iterator for Iter<'a, Item> {
     type Item = &'a Item;
     fn next(&mut self) -> Option<Self::Item> {
-        self.current.as_ref().map(|node| {
+        self.current.map(|node| {
             let item = &node.item;
-            self.current = &node.next;
+            self.current = node.next.as_deref();
             item
         })
     }
