@@ -13,9 +13,8 @@ impl<T> Cell<T> {
     }
 
     pub fn set(&self, value: T) {
-        unsafe {
-            *self.value.get() = value;
-        }
+        let old = self.replace(value);
+        drop(old);
     }
 
     pub fn get(&self) -> T
@@ -38,6 +37,14 @@ impl<T> Cell<T> {
             return;
         }
         unsafe { std::ptr::swap(self.value.get(), other.value.get()) }
+    }
+
+    pub fn update<F>(&self, f: F)
+    where
+        F: FnOnce(T) -> T,
+        T: Copy,
+    {
+        self.set(f(self.get()));
     }
 }
 
