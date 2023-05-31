@@ -24,13 +24,34 @@ impl<T> Cell<T> {
     {
         unsafe { *self.value.get() }
     }
-}
 
-impl<T> Drop for Cell<T> {
-    fn drop(&mut self) {
-        eprintln!("Dropping Cell Pointer: {:p}", self.value.get());
+    pub fn into_inner(self) -> T {
+        self.value.into_inner()
+    }
+
+    pub fn replace(&self, value: T) -> T {
+        std::mem::replace(unsafe { &mut *self.value.get() }, value)
+    }
+
+    pub fn swap(&self, other: &Self) {
+        if std::ptr::eq(self, other) {
+            return;
+        }
+        unsafe { std::ptr::swap(self.value.get(), other.value.get()) }
     }
 }
+
+impl<T: Default> Cell<T> {
+    pub fn take(&self) -> T {
+        self.replace(Default::default())
+    }
+}
+
+// impl<T> Drop for Cell<T> {
+//     fn drop(&mut self) {
+//         eprintln!("Dropping Cell Pointer: {:p}", self.value.get());
+//     }
+// }
 
 #[cfg(test)]
 mod test {
