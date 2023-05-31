@@ -3,6 +3,7 @@ pub mod digraph;
 pub mod graph;
 pub mod ll;
 pub mod math;
+pub mod pointers;
 pub mod pq;
 pub mod search;
 pub mod sort;
