@@ -169,7 +169,7 @@ mod tests {
             assert_eq!(c.integer, 30)
         }
 
-        let new_cell = refcell.borrow();
+        let _new_cell = refcell.borrow();
         let new_cell_1 = refcell.borrow_mut();
         match new_cell_1 {
             Some(_) => {

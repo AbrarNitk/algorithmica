@@ -51,3 +51,13 @@ impl<T> std::ops::Deref for Rc<T> {
         &inner.value
     }
 }
+
+#[cfg(test)]
+mod test {
+    #[test]
+    fn test_1() {
+        let rc = super::Rc::new(10);
+        let rc_clone = rc.clone();
+        assert_eq!(10, *rc_clone)
+    }
+}
