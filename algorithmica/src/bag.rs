@@ -2,7 +2,7 @@
 // elements an iterating through them
 // It does not support the remove operation
 
-type Link<Item> = Option<std::rc::Rc<Node<Item>>>;
+type Link<Item> = Option<Box<Node<Item>>>;
 
 struct Node<Item> {
     item: Item,
@@ -18,6 +18,10 @@ pub struct Iter<'a, Item> {
     current: Option<&'a Node<Item>>,
 }
 
+pub struct IterMut<'a, Item> {
+    current: Option<&'a mut Node<Item>>,
+}
+
 impl<Item> Default for Bag<Item> {
     fn default() -> Self {
         Self { head: None, n: 0 }
@@ -30,7 +34,7 @@ impl<Item> Bag<Item> {
     }
     pub fn add(&mut self, item: Item) {
         self.n += 1;
-        self.head = Some(std::rc::Rc::new(Node {
+        self.head = Some(Box::new(Node {
             item,
             next: self.head.take(),
         }))
@@ -44,6 +48,12 @@ impl<Item> Bag<Item> {
             current: self.head.as_deref(),
         }
     }
+
+    pub fn iter_mut(&mut self) -> IterMut<Item> {
+        IterMut {
+            current: self.head.as_deref_mut(),
+        }
+    }
 }
 
 impl<'a, Item> Iterator for Iter<'a, Item> {
@@ -52,6 +62,17 @@ impl<'a, Item> Iterator for Iter<'a, Item> {
         self.current.map(|node| {
             let item = &node.item;
             self.current = node.next.as_deref();
+            item
+        })
+    }
+}
+
+impl<'a, Item> Iterator for IterMut<'a, Item> {
+    type Item = &'a mut Item;
+    fn next(&mut self) -> Option<Self::Item> {
+        self.current.take().map(|x| {
+            let item = &mut x.item;
+            self.current = x.next.as_deref_mut();
             item
         })
     }
