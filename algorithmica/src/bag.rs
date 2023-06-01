@@ -78,6 +78,15 @@ impl<'a, Item> Iterator for IterMut<'a, Item> {
     }
 }
 
+impl<Item> Drop for Bag<Item> {
+    fn drop(&mut self) {
+        let mut curr = self.head.take();
+        while let Some(mut node) = curr {
+            curr = node.next.take();
+        }
+    }
+}
+
 #[cfg(test)]
 mod bag_tests {
     #[test]
