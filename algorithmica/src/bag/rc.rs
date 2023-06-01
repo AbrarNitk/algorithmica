@@ -1,11 +1,6 @@
-// Bag is a simple data structure that only support the adding
-// elements an iterating through them
-// It does not support the remove operation
-
-type Link<Item> = Option<Box<Node<Item>>>;
-
-struct Node<Item> {
-    item: Item,
+type Link<Item> = Option<std::rc::Rc<Node<Item>>>;
+pub struct Node<Item> {
+    value: Item,
     next: Link<Item>,
 }
 
@@ -14,31 +9,29 @@ pub struct Bag<Item> {
     n: usize,
 }
 
-pub struct Iter<'a, Item> {
-    current: Option<&'a Node<Item>>,
-}
-
-pub struct IterMut<'a, Item> {
-    current: Option<&'a mut Node<Item>>,
-}
-
 impl<Item> Default for Bag<Item> {
     fn default() -> Self {
         Self { head: None, n: 0 }
     }
 }
 
+pub struct Iter<'a, Item> {
+    current: Option<&'a Node<Item>>,
+}
+
 impl<Item> Bag<Item> {
     pub fn new() -> Self {
         Self::default()
     }
-    pub fn add(&mut self, item: Item) {
+
+    pub fn add(&mut self, value: Item) {
         self.n += 1;
-        self.head = Some(Box::new(Node {
-            item,
-            next: self.head.take(),
+        self.head = Some(std::rc::Rc::new(Node {
+            value,
+            next: self.head.clone(),
         }))
     }
+
     pub fn size(&self) -> usize {
         self.n
     }
@@ -48,31 +41,14 @@ impl<Item> Bag<Item> {
             current: self.head.as_deref(),
         }
     }
-
-    pub fn iter_mut(&mut self) -> IterMut<Item> {
-        IterMut {
-            current: self.head.as_deref_mut(),
-        }
-    }
 }
 
 impl<'a, Item> Iterator for Iter<'a, Item> {
     type Item = &'a Item;
     fn next(&mut self) -> Option<Self::Item> {
-        self.current.map(|node| {
-            let item = &node.item;
-            self.current = node.next.as_deref();
-            item
-        })
-    }
-}
-
-impl<'a, Item> Iterator for IterMut<'a, Item> {
-    type Item = &'a mut Item;
-    fn next(&mut self) -> Option<Self::Item> {
         self.current.take().map(|x| {
-            let item = &mut x.item;
-            self.current = x.next.as_deref_mut();
+            let item = &x.value;
+            self.current = x.next.as_deref();
             item
         })
     }
@@ -80,9 +56,13 @@ impl<'a, Item> Iterator for IterMut<'a, Item> {
 
 impl<Item> Drop for Bag<Item> {
     fn drop(&mut self) {
-        let mut curr = self.head.take();
-        while let Some(mut node) = curr {
-            curr = node.next.take();
+        let mut cur = self.head.take();
+        while let Some(node) = cur {
+            if let Ok(mut node) = std::rc::Rc::try_unwrap(node) {
+                cur = node.next.take()
+            } else {
+                break;
+            }
         }
     }
 }
@@ -90,7 +70,7 @@ impl<Item> Drop for Bag<Item> {
 #[cfg(test)]
 mod bag_tests {
     #[test]
-    fn test_1() {
+    fn test_2() {
         let mut bag = super::Bag::new();
         bag.add(5);
         bag.add(10);
