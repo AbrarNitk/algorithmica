@@ -1,5 +1,3 @@
-use std::ops::Deref;
-
 type Link<Item> = Option<std::rc::Rc<std::cell::RefCell<Node<Item>>>>;
 pub struct Node<Item> {
     value: Item,
