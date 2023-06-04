@@ -1,2 +1,2 @@
 [workspace]
-members = ["algorithmica", "redblackbst"]
+members = ["algorithmica", "redblackbst", "rust-challenges"]
