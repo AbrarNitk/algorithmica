@@ -89,9 +89,8 @@ impl<'a, Item> Iterator for Iter<'a, Item> {
     type Item = &'a Item;
     fn next(&mut self) -> Option<Self::Item> {
         self.current.take().map(|x| {
-            let value = &x.value;
-            self.current = unsafe { x.next.as_ref().map(|x| x) };
-            value
+            self.current = unsafe { x.next.as_ref() };
+            &x.value
         })
     }
 }
@@ -100,9 +99,8 @@ impl<'a, Item> Iterator for IterMut<'a, Item> {
     type Item = &'a mut Item;
     fn next(&mut self) -> Option<Self::Item> {
         self.current.take().map(|x| {
-            let value = &mut x.value;
-            self.current = unsafe { x.next.as_mut().map(|x| x) };
-            value
+            self.current = unsafe { x.next.as_mut() };
+            &mut x.value
         })
     }
 }
