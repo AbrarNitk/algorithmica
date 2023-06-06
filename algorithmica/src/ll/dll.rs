@@ -11,6 +11,12 @@ pub struct LinkList<Item> {
     len: usize,
 }
 
+pub struct IntoIter<Item> {
+    head: Link<Item>,
+    tail: Link<Item>,
+    len: usize,
+}
+
 impl<Item> Node<Item> {
     fn new(value: Item) -> Box<Self> {
         Box::new(Node {
@@ -59,6 +65,23 @@ impl<Item> LinkList<Item> {
         self.tail = Some(new_node);
         self.len += 1;
     }
+
+    pub fn pop_front(&mut self) -> Option<Item> {
+        self.head.map(|x| unsafe {
+            let boxed_node = Box::from_raw(x.as_ptr());
+            match (*x.as_ptr()).next {
+                Some(new_head) => {
+                    (*new_head.as_ptr()).prev = None;
+                    self.head = Some(new_head);
+                }
+                None => {
+                    self.tail = None;
+                }
+            }
+            self.len -= 1;
+            boxed_node.value
+        })
+    }
 }
 
 impl<Item> Default for LinkList<Item> {
@@ -73,6 +96,16 @@ impl<Item> Default for LinkList<Item> {
 
 #[cfg(test)]
 mod test {
+
     #[test]
     fn push_front() {}
+
+    #[test]
+    fn push_back() {}
+
+    #[test]
+    fn pop_front() {}
+
+    #[test]
+    fn pop_back() {}
 }
