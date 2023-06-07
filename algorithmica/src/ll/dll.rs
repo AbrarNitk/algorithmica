@@ -11,10 +11,11 @@ pub struct LinkList<Item> {
     len: usize,
 }
 
-pub struct IntoIter<Item> {
+pub struct Iter<'a, Item> {
     head: Link<Item>,
     tail: Link<Item>,
     len: usize,
+    _foo: std::marker::PhantomData<&'a Item>,
 }
 
 impl<Item> Node<Item> {
@@ -127,6 +128,15 @@ impl<Item> LinkList<Item> {
     pub fn is_empty(&self) -> bool {
         self.len() == 0
     }
+
+    pub fn iter(&self) -> Iter<Item> {
+        Iter {
+            head: self.head,
+            tail: self.tail,
+            len: self.len,
+            _foo: std::marker::PhantomData,
+        }
+    }
 }
 
 impl<Item> Default for LinkList<Item> {
@@ -136,6 +146,47 @@ impl<Item> Default for LinkList<Item> {
             tail: None,
             len: 0,
         }
+    }
+}
+
+impl<Item> Drop for LinkList<Item> {
+    fn drop(&mut self) {
+        while let Some(_) = self.pop_front() {}
+    }
+}
+
+impl<Item: Clone> Clone for LinkList<Item> {
+    fn clone(&self) -> Self {
+        let mut dll = LinkList::<Item>::new();
+        for item in self.into_iter() {
+            dll.push_back(item.clone());
+        }
+        dll
+    }
+}
+
+impl<'a, Item> Iterator for Iter<'a, Item> {
+    type Item = &'a Item;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        if self.len > 0 {
+            self.head.map(|x| unsafe {
+                self.len -= 1;
+                self.head = (*x.as_ptr()).next;
+                &(*x.as_ptr()).value
+            })
+        } else {
+            None
+        }
+    }
+}
+
+impl<'a, Item> IntoIterator for &'a LinkList<Item> {
+    type Item = &'a Item;
+    type IntoIter = Iter<'a, Item>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.iter()
     }
 }
 
