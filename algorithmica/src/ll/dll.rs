@@ -185,9 +185,9 @@ impl<Item> Extend<Item> for LinkedList<Item> {
     }
 }
 
-impl<Item> std::iter::FromIterator<Item> for LinkList<Item> {
+impl<Item> std::iter::FromIterator<Item> for LinkedList<Item> {
     fn from_iter<T: IntoIterator<Item = Item>>(iter: T) -> Self {
-        let mut dll = LinkList::new();
+        let mut dll = LinkedList::new();
         dll.extend(iter);
         dll
     }
@@ -397,6 +397,22 @@ mod test {
         dll.extend(dll2);
         let mut it = dll.iter();
         assert_eq!(dll.front(), Some(&"first-element"));
+        assert_eq!(it.next(), Some(&"first-element"));
+        assert_eq!(it.next(), Some(&"second-element"));
+        assert_eq!(it.next(), Some(&"third-element"));
+        assert_eq!(it.next(), None);
+    }
+
+    #[test]
+    fn from_iterator() {
+        use std::iter::FromIterator;
+        let mut dll = super::LinkedList::new();
+        dll.push_back("first-element");
+        dll.push_back("second-element");
+        dll.push_back("third-element");
+
+        let dll2 = super::LinkedList::from_iter(dll.into_iter());
+        let mut it = dll2.iter();
         assert_eq!(it.next(), Some(&"first-element"));
         assert_eq!(it.next(), Some(&"second-element"));
         assert_eq!(it.next(), Some(&"third-element"));
