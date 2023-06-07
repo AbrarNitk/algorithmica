@@ -5,7 +5,7 @@ pub struct Node<Item> {
     next: Link<Item>,
 }
 
-pub struct LinkList<Item> {
+pub struct LinkedList<Item> {
     head: Link<Item>,
     tail: Link<Item>,
     len: usize,
@@ -28,7 +28,11 @@ pub struct Iter<'a, Item> {
     _foo: std::marker::PhantomData<&'a Item>,
 }
 
-impl<Item> LinkList<Item> {
+pub struct IntoIter<Item> {
+    list: LinkedList<Item>,
+}
+
+impl<Item> LinkedList<Item> {
     pub fn new() -> Self {
         Default::default()
     }
@@ -141,9 +145,13 @@ impl<Item> LinkList<Item> {
             _foo: std::marker::PhantomData,
         }
     }
+
+    pub fn into_iter(self) -> IntoIter<Item> {
+        IntoIter { list: self }
+    }
 }
 
-impl<Item> Default for LinkList<Item> {
+impl<Item> Default for LinkedList<Item> {
     fn default() -> Self {
         Self {
             head: None,
@@ -153,15 +161,15 @@ impl<Item> Default for LinkList<Item> {
     }
 }
 
-impl<Item> Drop for LinkList<Item> {
+impl<Item> Drop for LinkedList<Item> {
     fn drop(&mut self) {
         while let Some(_) = self.pop_front() {}
     }
 }
 
-impl<Item: Clone> Clone for LinkList<Item> {
+impl<Item: Clone> Clone for LinkedList<Item> {
     fn clone(&self) -> Self {
-        let mut dll = LinkList::<Item>::new();
+        let mut dll = LinkedList::<Item>::new();
         for item in self.into_iter() {
             dll.push_back(item.clone());
         }
@@ -169,23 +177,23 @@ impl<Item: Clone> Clone for LinkList<Item> {
     }
 }
 
-// impl<Item> Extend<Item> for LinkList<Item> {
-//     fn extend<T: IntoIterator<Item = Item>>(&mut self, iter: T) {
-//         for item in iter {
-//             self.push_back(item);
-//         }
-//     }
-// }
+impl<Item> Extend<Item> for LinkedList<Item> {
+    fn extend<T: IntoIterator<Item = Item>>(&mut self, iter: T) {
+        for item in iter {
+            self.push_back(item);
+        }
+    }
+}
 
-// impl<Item> std::iter::FromIterator<Item> for LinkList<Item> {
-//     fn from_iter<T: IntoIterator<Item = Item>>(iter: T) -> Self {
-//         let mut dll = LinkList::new();
-//         dll.extend(iter);
-//         dll
-//     }
-// }
+impl<Item> std::iter::FromIterator<Item> for LinkList<Item> {
+    fn from_iter<T: IntoIterator<Item = Item>>(iter: T) -> Self {
+        let mut dll = LinkList::new();
+        dll.extend(iter);
+        dll
+    }
+}
 
-impl<Item: std::fmt::Debug> std::fmt::Debug for LinkList<Item> {
+impl<Item: std::fmt::Debug> std::fmt::Debug for LinkedList<Item> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.debug_list().entries(self).finish()
     }
@@ -207,7 +215,7 @@ impl<'a, Item> Iterator for Iter<'a, Item> {
     }
 }
 
-impl<'a, Item> IntoIterator for &'a LinkList<Item> {
+impl<'a, Item> IntoIterator for &'a LinkedList<Item> {
     type Item = &'a Item;
     type IntoIter = Iter<'a, Item>;
 
@@ -216,12 +224,32 @@ impl<'a, Item> IntoIterator for &'a LinkList<Item> {
     }
 }
 
+impl<Item> IntoIterator for LinkedList<Item> {
+    type Item = Item;
+    type IntoIter = IntoIter<Item>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.into_iter()
+    }
+}
+
+impl<Item> Iterator for IntoIter<Item> {
+    type Item = Item;
+    fn next(&mut self) -> Option<Self::Item> {
+        self.list.pop_front()
+    }
+
+    fn size_hint(&self) -> (usize, Option<usize>) {
+        (self.list.len, Some(self.list.len))
+    }
+}
+
 #[cfg(test)]
 mod test {
 
     #[test]
     fn push_front() {
-        let mut dll = super::LinkList::new();
+        let mut dll = super::LinkedList::new();
         dll.push_front("first-element");
         dll.push_front("second-element");
         dll.push_front("third-element");
@@ -230,8 +258,47 @@ mod test {
     }
 
     #[test]
+    fn basic_front() {
+        let mut list = super::LinkedList::new();
+        // Try to break an empty list
+        assert_eq!(list.len(), 0);
+        assert_eq!(list.pop_front(), None);
+        assert_eq!(list.len(), 0);
+
+        // Try to break a one item list
+        list.push_front(10);
+        assert_eq!(list.len(), 1);
+        assert_eq!(list.pop_front(), Some(10));
+        assert_eq!(list.len(), 0);
+        assert_eq!(list.pop_front(), None);
+        assert_eq!(list.len(), 0);
+
+        // Mess around
+        list.push_front(10);
+        assert_eq!(list.len(), 1);
+        list.push_front(20);
+        assert_eq!(list.len(), 2);
+        list.push_front(30);
+        assert_eq!(list.len(), 3);
+        assert_eq!(list.pop_front(), Some(30));
+        assert_eq!(list.len(), 2);
+        list.push_front(40);
+        assert_eq!(list.len(), 3);
+        assert_eq!(list.pop_front(), Some(40));
+        assert_eq!(list.len(), 2);
+        assert_eq!(list.pop_front(), Some(20));
+        assert_eq!(list.len(), 1);
+        assert_eq!(list.pop_front(), Some(10));
+        assert_eq!(list.len(), 0);
+        assert_eq!(list.pop_front(), None);
+        assert_eq!(list.len(), 0);
+        assert_eq!(list.pop_front(), None);
+        assert_eq!(list.len(), 0);
+    }
+
+    #[test]
     fn push_back() {
-        let mut dll = super::LinkList::new();
+        let mut dll = super::LinkedList::new();
         dll.push_back("first-element");
         dll.push_back("second-element");
         dll.push_back("third-element");
@@ -240,7 +307,7 @@ mod test {
 
     #[test]
     fn pop_front() {
-        let mut dll = super::LinkList::new();
+        let mut dll = super::LinkedList::new();
         dll.push_back("first-element");
         dll.push_back("second-element");
         dll.push_back("third-element");
@@ -252,7 +319,7 @@ mod test {
 
     #[test]
     fn pop_back() {
-        let mut dll = super::LinkList::new();
+        let mut dll = super::LinkedList::new();
         dll.push_front("first-element");
         dll.push_front("second-element");
         dll.push_front("third-element");
@@ -260,5 +327,79 @@ mod test {
         assert_eq!(dll.pop_back(), Some("second-element"));
         assert_eq!(dll.pop_back(), Some("third-element"));
         assert_eq!(dll.pop_back(), None);
+    }
+
+    #[test]
+    fn clone() {
+        let mut dll = super::LinkedList::new();
+        dll.push_front("first-element");
+        dll.push_front("second-element");
+        dll.push_front("third-element");
+        let mut cloned_ll = dll.clone();
+        assert_eq!(cloned_ll.pop_back(), Some("first-element"));
+        assert_eq!(cloned_ll.pop_back(), Some("second-element"));
+        assert_eq!(cloned_ll.pop_back(), Some("third-element"));
+        assert_eq!(cloned_ll.pop_back(), None);
+    }
+
+    #[test]
+    fn front() {
+        let mut dll = super::LinkedList::new();
+        dll.push_front("first-element");
+        dll.push_front("second-element");
+        dll.push_front("third-element");
+        let front_item = dll.front();
+        assert_eq!(front_item, Some(&"third-element"));
+    }
+
+    #[test]
+    fn front_mut() {
+        let mut dll = super::LinkedList::new();
+        dll.push_front("first-element");
+        dll.push_front("second-element");
+        dll.push_front("third-element");
+        if let Some(e) = dll.front_mut() {
+            *e = "changed-third-element";
+        };
+
+        assert_eq!(dll.front(), Some(&"changed-third-element"));
+    }
+    #[test]
+    fn back() {
+        let mut dll = super::LinkedList::new();
+        dll.push_back("first-element");
+        dll.push_back("second-element");
+        dll.push_back("third-element");
+        let back_item = dll.back();
+        assert_eq!(back_item, Some(&"third-element"));
+    }
+
+    #[test]
+    fn back_mut() {
+        let mut dll = super::LinkedList::new();
+        dll.push_front("first-element");
+        dll.push_front("second-element");
+        dll.push_front("third-element");
+        if let Some(e) = dll.front_mut() {
+            *e = "changed-first-element";
+        };
+        assert_eq!(dll.front(), Some(&"changed-first-element"));
+    }
+
+    #[test]
+    fn extend() {
+        let mut dll = super::LinkedList::new();
+        dll.push_back("first-element");
+
+        let mut dll2 = super::LinkedList::new();
+        dll2.push_back("second-element");
+        dll2.push_back("third-element");
+        dll.extend(dll2);
+        let mut it = dll.iter();
+        assert_eq!(dll.front(), Some(&"first-element"));
+        assert_eq!(it.next(), Some(&"first-element"));
+        assert_eq!(it.next(), Some(&"second-element"));
+        assert_eq!(it.next(), Some(&"third-element"));
+        assert_eq!(it.next(), None);
     }
 }
