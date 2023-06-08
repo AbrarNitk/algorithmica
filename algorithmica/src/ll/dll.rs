@@ -21,6 +21,7 @@ impl<Item> Node<Item> {
     }
 }
 
+#[allow(dead_code)]
 pub struct Iter<'a, Item> {
     head: Link<Item>,
     tail: Link<Item>,
@@ -126,7 +127,7 @@ impl<Item> LinkedList<Item> {
     }
 
     pub fn clear(&mut self) {
-        while let Some(_) = self.pop_back() {}
+        while self.pop_back().is_some() {}
     }
 
     pub fn len(&self) -> usize {
@@ -163,7 +164,7 @@ impl<Item> Default for LinkedList<Item> {
 
 impl<Item> Drop for LinkedList<Item> {
     fn drop(&mut self) {
-        while let Some(_) = self.pop_front() {}
+        while self.pop_front().is_some() {}
     }
 }
 

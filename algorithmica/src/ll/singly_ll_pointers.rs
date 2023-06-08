@@ -60,20 +60,20 @@ impl<Item> List<Item> {
 
     pub fn iter<'a>(&self) -> Iter<'a, Item> {
         Iter {
-            current: unsafe { self.head.as_ref().map(|x| x) },
+            current: unsafe { self.head.as_ref() },
         }
     }
 
     pub fn iter_mut<'a>(&mut self) -> IterMut<'a, Item> {
         IterMut {
-            current: unsafe { self.head.as_mut().map(|x| x) },
+            current: unsafe { self.head.as_mut() },
         }
     }
 }
 
 impl<Item> Drop for List<Item> {
     fn drop(&mut self) {
-        while let Some(_) = self.pop_front() {}
+        while self.pop_front().is_some() {}
     }
 }
 
