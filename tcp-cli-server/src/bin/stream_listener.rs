@@ -7,7 +7,7 @@ fn handle_client_stream(mut stream: std::net::TcpStream) {
         println!("Waiting for client to send the message ");
         if let Ok(bytes_read) = stream.read(&mut buffer) {
             if bytes_read == 0 {
-                // connection closed, or no byte is there to read
+                // connection closed
                 break;
             }
             println!("extending the stream data");
