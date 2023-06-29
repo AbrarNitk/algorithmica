@@ -8,9 +8,9 @@ The motive of this repository to curate the content for Algorithms and Implement
 - Linear Algebra 
 - Set
 
-## Data Structure and Algorithms 
+## Data Structure and Algorithms
 - Sorting 
-- Graphs 
+- Graphs
 - Array related problems 
 - Searching
 - Understanding of Queue, Stack, Heap
