@@ -1,14 +1,24 @@
-fn add(left: usize, right: usize) -> usize {
-    left + right
+#[macro_export]
+macro_rules! avec {
+    () => {
+        Vec::new()
+    };
+    ($element: expr) => {{
+        let mut v = Vec::new();
+        v.push($element);
+        v
+    }};
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
+#[test]
+fn test_empty() {
+    let v: Vec<i32> = avec![];
+    assert!(v.is_empty())
+}
 
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
+#[test]
+fn test_single() {
+    let v: Vec<i32> = avec![10];
+    assert!(!v.is_empty());
+    assert_eq!(v.len(), 1);
 }
