@@ -1,2 +1,9 @@
 [workspace]
-members = ["algorithmica", "redblackbst", "rust-challenges", "tcp-cli-server", "ws-chat-server"]
+members = [
+    "algorithmica", 
+    "redblackbst", 
+    "rust-challenges", 
+    "rust-fundamentals", 
+    "rust-networks/tcp-cli-server",
+    "rust-networks/ws-chat-server"
+]
