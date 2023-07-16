@@ -1,0 +1,13 @@
+[package]
+name = "md-renderer"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+comrak = "0.18"
+tokio = { version = "1.29", features = ["rt", "rt-multi-thread", "net", "process", "macros"] }
+hyper = { version = "0.14", features = ["full"] }
+serde_json = "1.0"
+futures = "0.3"
