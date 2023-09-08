@@ -2,9 +2,4 @@
 members = [
     "algorithmica", 
     "redblackbst", 
-    "rust-challenges", 
-    "rust-fundamentals", 
-    "rust-networks/tcp-cli-server",
-    "rust-networks/ws-chat-server",
-    "sample-projects"
 ]
