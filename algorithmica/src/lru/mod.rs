@@ -64,7 +64,7 @@ impl<Key, Value> DoublyLinkedList<Key, Value> {
     }
 
     fn move_to_front(&mut self, node_ptr: std::ptr::NonNull<Node<Key, Value>>) {
-        let mut node = unsafe { &mut (*node_ptr.as_ptr()) };
+        let node = unsafe { &mut (*node_ptr.as_ptr()) };
         if node.prev.is_none() {
             return;
         }
