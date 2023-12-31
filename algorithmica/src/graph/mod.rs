@@ -71,7 +71,7 @@ mod tests {
     use super::*;
     #[test]
     fn test_read_file() {
-        let path = "./src/graph/graph.txt";
+        let path = "../tests/graph.txt";
         let g = Graph::read_from_file(path);
         let dfs = depth_first_paths::DepthFirstPaths::new(0, &g);
         println!(
@@ -83,7 +83,7 @@ mod tests {
 
     #[test]
     fn test_read_file2() {
-        let path = "./src/graph/graph2.txt";
+        let path = "../tests/graph2.txt";
         let g = Graph::read_from_file(path);
         let dfs = depth_first_paths::DepthFirstPaths::new(0, &g);
         println!(
@@ -95,7 +95,7 @@ mod tests {
 
     #[test]
     fn connected_component() {
-        let path = "./src/graph/graph2.txt";
+        let path = "../tests/graph2.txt";
         let g = Graph::read_from_file(path);
         let cc = connected_component::ConnectedComponent::new(&g);
         assert_eq!(cc.count(), 3924)
@@ -103,7 +103,7 @@ mod tests {
 
     #[test]
     fn connected_component2() {
-        let path = "./src/graph/graph2.txt";
+        let path = "../tests/graph2.txt";
         let g = Graph::read_from_file(path);
         let cc = connected_component::ConnectedComponent::new(&g);
         assert_eq!(cc.id(3905), 233)
@@ -111,7 +111,7 @@ mod tests {
 
     #[test]
     fn connected_component3() {
-        let path = "./src/graph/graph3.txt";
+        let path = "../tests/graph3.txt";
         let g = Graph::read_from_file(path);
         let cc = connected_component::ConnectedComponent::new(&g);
         assert_eq!(cc.count(), 3)
@@ -119,7 +119,7 @@ mod tests {
 
     #[test]
     fn bipartite() {
-        let path = "./src/graph/graph4.txt";
+        let path = "../tests/graph4.txt";
         let g = Graph::read_from_file(path);
         let bp = bipartite::Bipartite::new(&g, 0);
         assert_eq!(bp.is_bipartite(), false)
@@ -128,7 +128,7 @@ mod tests {
     #[ignore]
     #[test]
     fn bipartite_large() {
-        let path = "./src/graph/graph5.txt";
+        let path = "../tests/graph5.txt";
         let g = Graph::read_from_file(path);
         let bp = bipartite::Bipartite::new(&g, 0);
         assert_eq!(bp.is_bipartite(), false)
@@ -137,7 +137,7 @@ mod tests {
     #[ignore]
     #[test]
     fn cycle_large() {
-        let path = "./src/graph/graph5.txt";
+        let path = "../tests/graph5.txt";
         let g = Graph::read_from_file(path);
         let bp = cycle::Cycle::new(&g);
         assert_eq!(bp.is_cycle(), true)
