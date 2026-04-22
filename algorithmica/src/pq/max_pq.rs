@@ -11,10 +11,9 @@ impl Default for MaxPQ {
 
 impl MaxPQ {
     pub fn from_capacity(capacity: usize) -> Self {
-        Self {
-            q: Vec::with_capacity(capacity + 1),
-            n: 0,
-        }
+        let mut q = Vec::with_capacity(capacity + 1);
+        q.resize_with(capacity + 1, Default::default);
+        Self { q, n: 0 }
     }
 
     pub fn from_arr(v: Vec<i32>) -> Self {
@@ -103,5 +102,12 @@ mod tests {
         pq.insert(15);
         println!("{:?}", pq.q);
         assert_eq!(pq.max(), 15);
+    }
+
+    #[test]
+    fn failed_test() {
+        let mut pq = MaxPQ::default();
+        pq.insert(42);
+        assert_eq!(pq.max(), 42);
     }
 }
