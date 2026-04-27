@@ -39,7 +39,7 @@ pub fn sink<T: Ord, F: Fn(&T, &T) -> bool>(arr: &mut [T], k: usize, n: usize, p:
     let mut k = k;
     while 2 * k < n {
         let mut j = 2 * k + 1;
-        if j < n && p(&arr[j], &arr[j + 1]) {
+        if j + 1 < n && p(&arr[j], &arr[j + 1]) {
             j += 1;
         }
         if !p(&arr[j], &arr[k]) {
