@@ -39,13 +39,13 @@ impl<Item> Bag<Item> {
         self.n
     }
 
-    pub fn iter(&self) -> Iter<Item> {
+    pub fn iter(&self) -> Iter<'_, Item> {
         Iter {
             current: self.head.as_deref(),
         }
     }
 
-    pub fn iter_mut(&mut self) -> IterMut<Item> {
+    pub fn iter_mut(&mut self) -> IterMut<'_, Item> {
         IterMut {
             current: self.head.as_deref_mut(),
         }

@@ -94,25 +94,25 @@ impl<Item> List<Item> {
         })
     }
 
-    pub fn peek_front(&self) -> Option<std::cell::Ref<Item>> {
+    pub fn peek_front(&self) -> Option<std::cell::Ref<'_, Item>> {
         self.head
             .as_ref()
             .map(|node| std::cell::Ref::map(node.borrow(), |node| &node.value))
     }
 
-    pub fn peek_front_mut(&self) -> Option<std::cell::RefMut<Item>> {
+    pub fn peek_front_mut(&self) -> Option<std::cell::RefMut<'_, Item>> {
         self.head
             .as_ref()
             .map(|node| std::cell::RefMut::map(node.borrow_mut(), |n| &mut n.value))
     }
 
-    pub fn peek_back(&self) -> Option<std::cell::Ref<Item>> {
+    pub fn peek_back(&self) -> Option<std::cell::Ref<'_, Item>> {
         self.tail
             .as_ref()
             .map(|node| std::cell::Ref::map(node.borrow(), |n| &n.value))
     }
 
-    pub fn peek_back_mut(&self) -> Option<std::cell::RefMut<Item>> {
+    pub fn peek_back_mut(&self) -> Option<std::cell::RefMut<'_, Item>> {
         self.tail
             .as_ref()
             .map(|node| std::cell::RefMut::map(node.borrow_mut(), |n| &mut n.value))

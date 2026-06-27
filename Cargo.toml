@@ -1,6 +1,6 @@
 [workspace]
 members = [
-    "algorithmica",
+    "algorithmica", "collections",
     "redblackbst",
     "trie"
 ]

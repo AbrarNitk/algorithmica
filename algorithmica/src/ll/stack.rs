@@ -47,7 +47,7 @@ impl<T> Stack<T> {
         self.head.as_deref()
     }
 
-    pub fn iter(&self) -> Iter<T> {
+    pub fn iter(&self) -> Iter<'_, T> {
         Iter { next: self.head() }
     }
 }

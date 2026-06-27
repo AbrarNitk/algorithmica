@@ -138,7 +138,7 @@ impl<Item> LinkedList<Item> {
         self.len() == 0
     }
 
-    pub fn iter(&self) -> Iter<Item> {
+    pub fn iter(&self) -> Iter<'_, Item> {
         Iter {
             head: self.head,
             tail: self.tail,
